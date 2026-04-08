@@ -2,9 +2,9 @@
 
 > Build a Chief Agentic Officer — a multi-agent AI system that runs your organization's operations.
 
-**155,000 lines of code. 17 projects. 1 founder. 0 funding. 8 AI agents. $20/month.**
+**8 AI agents. Shared state. Persistent memory. Governance built in. $20/month.**
 
-Spark is the operating system behind [Radical Imagination](https://radicalimagination.xyz), a cultural heritage technology collective. It manages grants, curricula, cultural validation, impact reporting, outreach, and portfolio tracking — all through a multi-agent architecture running on Claude Code.
+Spark is the operating system behind [Radical Imagination](https://radicalimagination.xyz), a cultural heritage technology collective managing 17 projects across 154K+ lines of code. It handles grants, curricula, cultural validation, impact reporting, outreach, and portfolio tracking — all through a multi-agent architecture running on Claude Code.
 
 This repo is the template. Fork it. Customize it. Give your org a Spark.
 
@@ -13,8 +13,9 @@ This repo is the template. Fork it. Customize it. Give your org a Spark.
 ## What You Get
 
 ```
-spark-workshop-template/
 ├── CLAUDE.md                    # Your org's instructions for Claude Code
+├── QUICKSTART.md                # 15-minute setup guide
+├── GOVERNANCE.md                # Operational governance model
 ├── state/
 │   ├── org-state.md             # Priorities, active projects, deadlines
 │   ├── portfolio.md             # Every project with status
@@ -29,9 +30,13 @@ spark-workshop-template/
 ├── memory/
 │   ├── MEMORY.md                # Cross-session memory index
 │   └── example-feedback.md      # Sample memory entry
-└── protocol/
-    ├── session-start.md         # What happens at the start of every session
-    └── session-close.md         # What happens at the end of every session
+├── protocol/
+│   ├── session-start.md         # What happens at the start of every session
+│   └── session-close.md         # What happens at the end of every session
+└── docs/
+    ├── agent-spec-standard.md   # How to define agents (the portable format)
+    ├── open-infrastructure.md   # How .claude/ works as an OS
+    └── case-study-dubois-does-data.md  # One project through all 8 agents
 ```
 
 ## What Spark Does (at Radical Imagination)
@@ -47,7 +52,7 @@ spark-workshop-template/
 | **Impact & Engagement** | Reports, social, content | Impact analyst ($30-40K) |
 | **Commercial Strategist** | Evaluates opportunities | Business dev |
 
-**Total replaced labor: ~$250K/year. Cost: $20/month (Claude Code subscription).**
+**What these agents share: the same state files, the same memory, the same governance protocols.**
 
 ## How It Works
 
@@ -72,7 +77,7 @@ The state files ARE the institution. If the founder gets hit by a bus, the state
 
 ```bash
 # 1. Fork this repo
-gh repo fork radical-imagination/spark-workshop-template --clone
+gh repo fork ShdwSpde/spark-workshop-template --clone
 
 # 2. Open in your editor
 cd spark-workshop-template
@@ -104,7 +109,7 @@ Ask Spark:
 
 ```
 ┌─────────────────────────────────────────┐
-│              YOU (the founder)           │
+│                 YOU                      │
 │                    │                     │
 │                    ▼                     │
 │               ┌─────────┐               │
@@ -135,11 +140,12 @@ Ask Spark:
 
 ## Key Principles
 
-1. **8 agents max.** Google research shows multi-agent systems lose performance above 8. Make each one smarter, not more numerous.
-2. **State files ARE the institution.** If the AI forgets everything between sessions, it's a stranger you brief every morning.
-3. **Drafts only, never sends.** The AI drafts emails. The human reviews and sends. Tone is personal. Relationships are human.
-4. **The protocol is the discipline.** Every session starts the same (read state, check contradictions) and ends the same (update state, draft morning email).
-5. **Memory is earned.** The AI remembers corrections, preferences, and context across sessions. It gets better the more you use it.
+1. **You learn by doing it, because you are capable of doing it.** Don't read about Spark. Build your Spark. The template is a trail, not a textbook. Walk it.
+2. **8 agents max.** Google research shows multi-agent systems lose performance above 8. Make each one smarter, not more numerous.
+3. **State files ARE the institution.** If the AI forgets everything between sessions, it's a stranger you brief every morning.
+4. **Drafts only, never sends.** The AI drafts emails. The human reviews and sends. Tone is personal. Relationships are human.
+5. **The protocol is the discipline.** Every session starts the same (read state, check contradictions) and ends the same (update state, draft morning email).
+6. **Memory is earned.** The AI remembers corrections, preferences, and context across sessions. It gets better the more you use it.
 
 ## Workshop
 
@@ -155,9 +161,7 @@ Want to build your Spark with guided help?
 
 ## Built By
 
-**[Radical Imagination](https://radicalimagination.xyz)** — a collective that designs VR/AR/XR experiences honoring cultural heritage. Spark is our operating system. Now it's yours.
-
-**Mike Spade** — Founder. Built 155K LOC across 17 projects with Spark as employee #2.
+**[Radical Imagination](https://radicalimagination.xyz)** — a collective that designs VR/AR/XR experiences honoring cultural heritage. Spark is the operating system. Now it's yours.
 
 ---
 
