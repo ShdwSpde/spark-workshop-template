@@ -3,406 +3,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spark — Give Your Org a Chief Agentic Officer | Radical Imagination</title>
+<title>Spark — Give Your Org a Chief Agentic Officer</title>
+<meta name="description" content="Build a multi-agent AI system for your organization in 3 hours. 8 agents, shared state, persistent memory, governance built in. $20/month.">
+<meta property="og:title" content="Spark — Give Your Org a Chief Agentic Officer">
+<meta property="og:description" content="Build a multi-agent AI system for your organization in 3 hours. Leave with a working system, not a slide deck about one.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --gold: #CFB53B;
-  --gold-dim: rgba(207,181,59,0.15);
+  --gold-glow: rgba(207,181,59,0.08);
   --black: #0D0D0D;
   --surface: #141414;
+  --surface-hover: #1a1a1a;
   --text: #E8E8E8;
-  --muted: #888;
-  --dim: #444;
+  --muted: #999;
+  --dim: #555;
+  --border: #222;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); min-height:100vh; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); }
+a { color:var(--gold); text-decoration:none; }
+a:hover { text-decoration:underline; }
 
-/* Gold top line */
 .gold-line { height:4px; background:var(--gold); }
 
-/* CTA banner */
-.cta-banner {
-  background:linear-gradient(135deg, #1a1500 0%, #0D0D0D 100%);
-  border-bottom:1px solid #333;
-  padding:32px 20px; text-align:center;
+/* HERO */
+.hero {
+  text-align:center; padding:80px 20px 60px;
+  background:linear-gradient(180deg, rgba(207,181,59,0.04) 0%, transparent 100%);
 }
-.cta-banner .cta-inner { max-width:680px; margin:0 auto; }
-.cta-banner h2 { font-size:1.3rem; font-weight:800; color:var(--gold); margin-bottom:6px; }
-.cta-banner .cta-date { font-size:1rem; color:var(--text); margin-bottom:4px; }
-.cta-banner .cta-detail { font-size:0.85rem; color:var(--muted); margin-bottom:16px; line-height:1.5; }
-.cta-banner .cta-btn {
-  display:inline-block; padding:12px 28px; background:var(--gold); color:var(--black);
-  text-decoration:none; border-radius:6px; font-weight:800; font-size:0.95rem;
-  transition:opacity 0.2s;
+.hero .spark-icon { font-size:3rem; margin-bottom:16px; }
+.hero h1 { font-size:2.6rem; font-weight:900; color:var(--text); margin-bottom:12px; line-height:1.15; }
+.hero h1 span { color:var(--gold); }
+.hero .tagline { font-size:1.15rem; color:var(--muted); max-width:560px; margin:0 auto 32px; line-height:1.6; }
+.hero .cta-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-primary {
+  display:inline-block; padding:14px 32px; background:var(--gold); color:var(--black);
+  border-radius:6px; font-weight:800; font-size:0.95rem; transition:opacity 0.2s;
+  text-decoration:none;
 }
-.cta-banner .cta-btn:hover { opacity:0.9; }
-.cta-banner .cta-seats { font-size:0.8rem; color:var(--muted); margin-top:10px; }
-
-/* Gate */
-#gate {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; padding:40px 20px; text-align:center;
+.btn-primary:hover { opacity:0.9; text-decoration:none; }
+.btn-secondary {
+  display:inline-block; padding:14px 32px; background:transparent; color:var(--gold);
+  border:2px solid var(--gold); border-radius:6px; font-weight:700; font-size:0.95rem;
+  transition:background 0.2s; text-decoration:none;
 }
-#gate h1 { font-size:2.5rem; font-weight:900; color:var(--gold); margin-bottom:8px; }
-#gate .sub { color:var(--muted); margin-bottom:32px; max-width:500px; line-height:1.6; }
-#gate input {
-  padding:14px 20px; width:280px; background:var(--surface); border:2px solid var(--dim);
-  color:var(--text); border-radius:8px; font-size:16px; text-align:center;
-  letter-spacing:4px; font-family:monospace;
+.btn-secondary:hover { background:var(--gold-glow); text-decoration:none; }
+.hero .note { font-size:0.8rem; color:var(--dim); margin-top:16px; }
+
+/* STATS BAR */
+.stats {
+  display:flex; justify-content:center; gap:40px; padding:24px 20px;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
 }
-#gate input:focus { border-color:var(--gold); outline:none; }
-#gate input::placeholder { color:var(--dim); letter-spacing:2px; font-size:14px; }
-#gate .error { color:#c44; font-size:13px; margin-top:8px; min-height:20px; }
-#gate .public-link {
-  margin-top:40px; font-size:13px; color:var(--muted);
-}
-#gate .public-link a { color:var(--gold); text-decoration:none; }
-#gate .public-link a:hover { text-decoration:underline; }
+.stat { text-align:center; }
+.stat .num { font-size:1.4rem; font-weight:900; color:var(--gold); }
+.stat .label { font-size:0.75rem; color:var(--dim); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
 
-/* Content (hidden until authenticated) */
-#content { display:none; }
-
-.container { max-width:800px; margin:0 auto; padding:40px 20px; }
-
-.hero { text-align:center; padding:60px 20px 40px; }
-.hero h1 { font-size:2.2rem; font-weight:900; color:var(--gold); margin-bottom:12px; }
-.hero p { color:var(--muted); max-width:550px; margin:0 auto; line-height:1.7; }
-
-.section { padding:40px 0; border-top:1px solid #222; }
-.section h2 { font-size:1.4rem; font-weight:800; color:var(--gold); margin-bottom:16px; }
+/* SECTIONS */
+.container { max-width:820px; margin:0 auto; padding:0 20px; }
+.section { padding:56px 0; border-bottom:1px solid var(--border); }
+.section:last-child { border-bottom:none; }
+.section h2 { font-size:1.5rem; font-weight:800; color:var(--text); margin-bottom:8px; }
+.section h2 span { color:var(--gold); }
+.section .section-sub { color:var(--muted); margin-bottom:28px; line-height:1.6; }
 .section p { color:#bbb; line-height:1.7; margin-bottom:12px; }
 
-/* Resource cards */
-.resources { display:flex; flex-direction:column; gap:12px; margin-top:16px; }
-.resource {
-  background:var(--surface); border-radius:8px; padding:20px;
-  border-left:3px solid var(--gold); display:flex; justify-content:space-between;
-  align-items:center; gap:16px;
+/* GRID CARDS */
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:600px) { .grid { grid-template-columns:1fr; } }
+.card {
+  background:var(--surface); border-radius:10px; padding:24px;
+  border:1px solid var(--border); transition:border-color 0.2s;
 }
-.resource-info h3 { font-size:1rem; font-weight:700; margin-bottom:4px; }
-.resource-info p { font-size:0.85rem; color:var(--muted); margin:0; }
-.resource a {
-  padding:8px 16px; background:var(--gold); color:var(--black);
-  text-decoration:none; border-radius:4px; font-size:13px; font-weight:700;
-  white-space:nowrap;
-}
-.resource a:hover { opacity:0.9; }
+.card:hover { border-color:#333; }
+.card h3 { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:6px; }
+.card p { font-size:0.85rem; color:var(--muted); line-height:1.5; margin:0; }
+.card .price { font-size:1.2rem; font-weight:900; color:var(--gold); margin-top:10px; }
+.card .price-note { font-size:0.75rem; color:var(--dim); }
 
-/* Format cards */
-.formats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
-@media (max-width:600px) { .formats { grid-template-columns:1fr; } }
-.format-card {
-  background:var(--surface); border-radius:8px; padding:20px;
-  border:1px solid #222;
-}
-.format-card h3 { font-size:1rem; color:var(--gold); margin-bottom:4px; }
-.format-card .duration { font-size:0.8rem; color:var(--muted); margin-bottom:8px; }
-.format-card p { font-size:0.85rem; color:#bbb; line-height:1.5; }
-.format-card .price { font-size:1.1rem; font-weight:800; color:var(--gold); margin-top:8px; }
+/* BEFORE/AFTER TABLE */
+.compare { width:100%; border-collapse:collapse; }
+.compare td { padding:12px 16px; font-size:0.9rem; border-bottom:1px solid #1a1a1a; }
+.compare .before { color:#666; }
+.compare .after { color:var(--text); }
+.compare .arrow { color:var(--gold); text-align:center; width:40px; font-size:0.8rem; }
 
+/* EXAMPLE CARDS */
+.example {
+  background:var(--surface); border-radius:10px; padding:24px; margin-bottom:14px;
+  border-left:3px solid var(--gold);
+}
+.example h3 { font-size:0.95rem; font-weight:700; margin-bottom:6px; }
+.example p { font-size:0.85rem; color:var(--muted); margin:0 0 8px; line-height:1.5; }
+.example a { font-size:0.8rem; font-weight:700; }
+
+/* ARCHITECTURE */
+.arch {
+  background:var(--surface); border-radius:10px; padding:28px; margin-top:20px;
+  font-family:'Courier New',monospace; font-size:0.8rem; color:var(--muted);
+  line-height:1.7; overflow-x:auto; white-space:pre;
+}
+
+/* FINAL CTA */
+.final-cta {
+  text-align:center; padding:64px 20px;
+  background:linear-gradient(0deg, rgba(207,181,59,0.04) 0%, transparent 100%);
+}
+.final-cta h2 { font-size:1.8rem; font-weight:900; color:var(--text); margin-bottom:8px; }
+.final-cta p { color:var(--muted); max-width:480px; margin:0 auto 28px; line-height:1.6; }
+
+/* FOOTER */
 .footer {
-  text-align:center; padding:40px 20px; border-top:1px solid #222;
+  text-align:center; padding:32px 20px; border-top:1px solid var(--border);
   font-size:0.8rem; color:var(--dim);
 }
-.footer a { color:var(--gold); text-decoration:none; }
+.footer a { color:var(--gold); }
 </style>
 </head>
 <body>
 <div class="gold-line"></div>
 
-<!-- PUBLIC CTA — visible to everyone, no gate -->
-<div class="cta-banner" id="cta-banner">
-  <div class="cta-inner">
-    <h2>Next Workshop</h2>
-    <div class="cta-date">Date TBA — New York City</div>
-    <div class="cta-detail">
-      3 hours. Build a multi-agent AI system for your organization. Leave with a working Spark.<br>
-      No coding experience required. Just a laptop and a Claude Code subscription.
-    </div>
-    <a class="cta-btn" href="#workshop-info">Learn More</a>
-    <div class="cta-seats">Seats are limited. Join the waitlist to get notified.</div>
-  </div>
-</div>
-
-<!-- PUBLIC WORKSHOP INFO — visible to everyone -->
-<div id="workshop-info" style="display:none;">
-<div class="container">
-
-  <div class="section" style="border-top:none;padding-top:20px;">
-    <h2>What You'll Build</h2>
-    <p>In 3 hours, you design and build a multi-agent AI system tailored to your organization. You leave with a working system, not a slide deck about one.</p>
-    <div class="formats" style="margin-top:16px;">
-      <div class="format-card">
-        <h3>Hour 1: Design Your Agents</h3>
-        <p>Identify the roles your org needs but can't afford. Design 3-5 agents with scope, calibration, and routing.</p>
-      </div>
-      <div class="format-card">
-        <h3>Hour 2: Build Your State</h3>
-        <p>Populate state files with YOUR real data — projects, priorities, people, decisions.</p>
-      </div>
-      <div class="format-card">
-        <h3>Hour 3: Connect & Run</h3>
-        <p>Run your first Spark session. Watch the AI respond with intelligence about YOUR organization.</p>
-      </div>
-      <div class="format-card">
-        <h3>What You Leave With</h3>
-        <p>3-5 custom agents, state files with real data, memory layer, session protocol, 30-day follow-up access.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>What Spark Replaces</h2>
-    <div style="overflow-x:auto;">
-      <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
-        <tr style="border-bottom:1px solid #333;">
-          <td style="padding:10px 12px;color:var(--muted);">Before</td>
-          <td style="padding:10px 12px;color:var(--text);">After</td>
-        </tr>
-        <tr style="border-bottom:1px solid #222;">
-          <td style="padding:10px 12px;color:#777;">Project tracker nobody updates</td>
-          <td style="padding:10px 12px;">State files agents read/write every session</td>
-        </tr>
-        <tr style="border-bottom:1px solid #222;">
-          <td style="padding:10px 12px;color:#777;">Context lost between work sessions</td>
-          <td style="padding:10px 12px;">Memory persists corrections and preferences</td>
-        </tr>
-        <tr style="border-bottom:1px solid #222;">
-          <td style="padding:10px 12px;color:#777;">Grant deadlines discovered too late</td>
-          <td style="padding:10px 12px;">Money Agent scans and flags deadlines</td>
-        </tr>
-        <tr style="border-bottom:1px solid #222;">
-          <td style="padding:10px 12px;color:#777;">Quality issues shipped to production</td>
-          <td style="padding:10px 12px;">Validator blocks release until cleared</td>
-        </tr>
-        <tr>
-          <td style="padding:10px 12px;color:#777;">Siloed projects that don't connect</td>
-          <td style="padding:10px 12px;">Cross-project intelligence finds patterns</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Pricing</h2>
-    <div class="formats">
-      <div class="format-card">
-        <h3>Individual Seat</h3>
-        <div class="price">$1,000</div>
-        <p style="margin-top:8px;">3-hour workshop + template repo + 30-day follow-up access</p>
-      </div>
-      <div class="format-card">
-        <h3>Team Pack (3-5 seats)</h3>
-        <div class="price">$3,500 – $4,000</div>
-        <p style="margin-top:8px;">Workshop + 1-hour post-workshop office hours for your team</p>
-      </div>
-      <div class="format-card">
-        <h3>Org License</h3>
-        <div class="price">$7,500 – $10,000</div>
-        <p style="margin-top:8px;">Workshop + custom agent design session — we build your first 3 agents with you</p>
-      </div>
-      <div class="format-card">
-        <h3>Custom Build</h3>
-        <div class="price">$10,000 – $15,000</div>
-        <p style="margin-top:8px;">2 days on-site. We build your entire Spark — agents, state, memory, integrations</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Get Notified</h2>
-    <p>First workshop date coming soon. Join the waitlist:</p>
-    <p style="margin-top:12px;">
-      <a class="cta-btn" href="mailto:create@radicalimagination.xyz?subject=Spark%20Workshop%20Waitlist">Join Waitlist</a>
-    </p>
-    <p style="color:var(--muted);margin-top:16px;font-size:0.85rem;">
-      Or explore the open-source template now: <a href="https://github.com/ShdwSpde/spark-workshop-template" style="color:var(--gold);text-decoration:none;">GitHub</a>
-    </p>
-  </div>
-
-</div>
-</div>
-
-<!-- PASSWORD GATE -->
-<div id="gate">
-  <h1>✒️⚡ Spark</h1>
-  <p class="sub">Workshop materials for "Give Your Org a Spark: Building a Chief Agentic Officer." Enter your workshop access code to continue.</p>
-  <input type="password" id="pw" placeholder="access code" autofocus
-         onkeydown="if(event.key==='Enter')checkPw()">
-  <div class="error" id="error"></div>
-  <div class="public-link">
-    Don't have a code? The open-source template is free:<br>
-    <a href="https://github.com/ShdwSpde/spark-workshop-template" target="_blank">github.com/radical-imagination/spark-workshop-template</a>
-  </div>
-</div>
-
-<!-- PROTECTED CONTENT -->
-<div id="content">
-
+<!-- HERO -->
 <div class="hero">
-  <h1>✒️⚡ Spark Workshop</h1>
-  <p>Everything you need to build, facilitate, and run the "Give Your Org a Spark" workshop. Facilitator guides, curriculum, slide decks, and advanced materials.</p>
+  <div class="spark-icon">✒️⚡</div>
+  <h1>Give Your Org a <span>Spark</span></h1>
+  <p class="tagline">Build a multi-agent AI system that runs your organization's operations. 8 agents. Shared state. Persistent memory. Governance built in. $20/month.</p>
+  <div class="cta-row">
+    <a class="btn-primary" href="#pricing">Register for Workshop</a>
+    <a class="btn-secondary" href="https://github.com/ShdwSpde/spark-workshop-template" target="_blank">View on GitHub</a>
+  </div>
+  <div class="note">Open source. No coding experience required.</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">8</div><div class="label">AI Agents</div></div>
+  <div class="stat"><div class="num">17</div><div class="label">Projects Managed</div></div>
+  <div class="stat"><div class="num">154K</div><div class="label">Lines of Code</div></div>
+  <div class="stat"><div class="num">$20</div><div class="label">Per Month</div></div>
 </div>
 
 <div class="container">
 
-  <div class="section">
-    <h2>Workshop Materials</h2>
-    <p>Download or open directly in your browser.</p>
-    <div class="resources">
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Full Curriculum</h3>
-          <p>Keynote structure, 3-hour workshop flow, facilitator notes, revenue model</p>
-        </div>
-        <a href="curriculum.md" target="_blank">Open</a>
-      </div>
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Keynote Slide Deck (26 slides)</h3>
-          <p>60-min talk — Problem, Architecture, Superpowers, Honest Part, Close</p>
-        </div>
-        <a href="keynote-deck.html" target="_blank">Present</a>
-      </div>
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Workshop Template Repo</h3>
-          <p>Fork this — CLAUDE.md, state files, agent templates, memory, protocols</p>
-        </div>
-        <a href="https://github.com/ShdwSpde/spark-workshop-template" target="_blank">GitHub</a>
-      </div>
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Facilitator Guide</h3>
-          <p>Timing cues, troubleshooting, common questions, room setup</p>
-        </div>
-        <a href="facilitator-guide.md" target="_blank">Open</a>
-      </div>
+<!-- WHAT SPARK REPLACES -->
+<div class="section">
+  <h2>What <span>Spark</span> Replaces</h2>
+  <p class="section-sub">Spark manages what would otherwise require a 5-person team.</p>
+  <table class="compare">
+    <tr><td class="before">Project tracker nobody updates</td><td class="arrow">→</td><td class="after">State files agents read and write every session</td></tr>
+    <tr><td class="before">Context lost between work sessions</td><td class="arrow">→</td><td class="after">Memory persists corrections, preferences, and context</td></tr>
+    <tr><td class="before">Grant deadlines discovered too late</td><td class="arrow">→</td><td class="after">Money Agent scans, flags, and creates calendar events</td></tr>
+    <tr><td class="before">Quality issues shipped to production</td><td class="arrow">→</td><td class="after">Validator blocks release until cleared — never rubber-stamps</td></tr>
+    <tr><td class="before">Siloed projects that don't connect</td><td class="arrow">→</td><td class="after">Cross-project intelligence finds patterns across the portfolio</td></tr>
+    <tr><td class="before">Decisions made and forgotten</td><td class="arrow">→</td><td class="after">Decision journal with reasoning, alternatives, and confidence</td></tr>
+  </table>
+</div>
+
+<!-- THE WORKSHOP -->
+<div class="section">
+  <h2>The <span>Workshop</span></h2>
+  <p class="section-sub">3 hours. You leave with a working system for your organization.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Hour 1: Design Your Agents</h3>
+      <p>Identify the roles your org needs but can't afford. Design 3-5 agents with scope, calibration, and routing signals.</p>
+    </div>
+    <div class="card">
+      <h3>Hour 2: Build Your State</h3>
+      <p>Populate state files with YOUR real data — projects, priorities, people, decisions. The AI reads your org, not a demo.</p>
+    </div>
+    <div class="card">
+      <h3>Hour 3: Connect & Run</h3>
+      <p>Run your first Spark session. Watch the AI respond with intelligence about YOUR organization. Draft your first email from context.</p>
+    </div>
+    <div class="card">
+      <h3>What You Leave With</h3>
+      <p>3-5 custom agents, state files with real data, memory layer, session protocol, template repo, and 30-day follow-up access.</p>
     </div>
   </div>
+</div>
 
-  <div class="section">
-    <h2>Workshop Formats</h2>
-    <div class="formats">
-      <div class="format-card">
-        <h3>Keynote</h3>
-        <div class="duration">60 minutes</div>
-        <p>The story. The architecture. The demos. The honest part. Q&A. No build time — pure narrative.</p>
-        <div class="price">$2,500 – $5,000</div>
-      </div>
-      <div class="format-card">
-        <h3>Workshop</h3>
-        <div class="duration">3 hours</div>
-        <p>Hands-on. Design agents, build state files, connect Gmail, run first session. Leave with a working system.</p>
-        <div class="price">$1,000/seat (cap 15)</div>
-      </div>
-      <div class="format-card">
-        <h3>Team Pack</h3>
-        <div class="duration">3 hours + office hours</div>
-        <p>Workshop for 3-5 people from the same org. Includes 1-hour post-workshop office hours.</p>
-        <div class="price">$3,500 – $4,000</div>
-      </div>
-      <div class="format-card">
-        <h3>Custom Org Build</h3>
-        <div class="duration">2 days on-site</div>
-        <p>We build your Spark for you. Agents, state files, memory, integrations — tailored to your organization.</p>
-        <div class="price">$10,000 – $15,000</div>
-      </div>
+<!-- REAL OUTPUT -->
+<div class="section">
+  <h2>Real <span>Output</span></h2>
+  <p class="section-sub">This is what Spark actually produces — not summaries, the full deliverables.</p>
+  <div class="example">
+    <h3>Money Agent — Grant Strategy</h3>
+    <p>Tiered funder analysis, 3 strategic pathways, $350K-$500K budget framework, risk matrix, funder-specific language coaching. Written in 4 minutes.</p>
+    <a href="https://github.com/ShdwSpde/spark-workshop-template/blob/main/examples/money-agent-grant-strategy.md" target="_blank">Read the full output →</a>
+  </div>
+  <div class="example">
+    <h3>Cultural Validator — Integrity Review</h3>
+    <p>5-category checklist, severity-tiered findings, 6 named consultation contacts, resolved/unresolved tracking. The Anti-Rubber-Stamp Rule in action.</p>
+    <a href="https://github.com/ShdwSpde/spark-workshop-template/blob/main/examples/validator-review.md" target="_blank">Read the full output →</a>
+  </div>
+  <div class="example">
+    <h3>Cross-Project Intelligence — Portfolio Scan</h3>
+    <p>19 connections across 17 projects in one pass. Reusable components, duplicated assets, scholar bridges, methodology transfers, strategic timing.</p>
+    <a href="https://github.com/ShdwSpde/spark-workshop-template/blob/main/examples/cross-project-scan.md" target="_blank">Read the full output →</a>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section">
+  <h2>How It <span>Works</span></h2>
+  <p class="section-sub">One entry point. Eight specialized agents. Shared state that IS the institution.</p>
+<div class="arch">         YOU
+          │
+          ▼
+      ┌─────────┐
+      │  SPARK   │  ← routes to the right agent
+      │  (CAO)   │
+      └────┬─────┘
+    ┌──────┼──────┐
+    ▼      ▼      ▼
+ Agent 1  Agent 2  Agent 3 ... Agent 8
+    │      │      │
+    ▼      ▼      ▼
+ ┌────────────────────────────┐
+ │    STATE FILES (markdown)  │
+ │  portfolio · priorities    │
+ │  decisions · people        │
+ │  validation · memory       │
+ └────────────────────────────┘</div>
+  <p style="margin-top:20px;">Every agent reads the same files. Every agent writes to them. If the system loses its AI tomorrow, the state files tell the next person everything. Markdown in a git repo — no database, no vendor lock-in, human-readable, diffable.</p>
+</div>
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+  <h2><span>Pricing</span></h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Individual Seat</h3>
+      <p>3-hour workshop + template repo + 30-day follow-up access</p>
+      <div class="price">$1,000</div>
+    </div>
+    <div class="card">
+      <h3>Team Pack (3-5 seats)</h3>
+      <p>Workshop + 1-hour post-workshop office hours for your team</p>
+      <div class="price">$3,500 – $4,000</div>
+    </div>
+    <div class="card">
+      <h3>Org License</h3>
+      <p>Workshop + custom agent design session — we build your first 3 agents with you</p>
+      <div class="price">$7,500 – $10,000</div>
+    </div>
+    <div class="card">
+      <h3>Custom Build</h3>
+      <p>2 days on-site. We build your entire Spark — agents, state, memory, integrations</p>
+      <div class="price">$10,000 – $15,000</div>
     </div>
   </div>
+  <p style="text-align:center;margin-top:20px;font-size:0.85rem;color:var(--dim);">All formats require a Claude Code subscription (~$20/month). No coding experience required.</p>
+</div>
 
-  <div class="section">
-    <h2>Advanced Materials</h2>
-    <div class="resources">
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Spark Architecture Deep Dive</h3>
-          <p>9 intelligence upgrades, 5 capabilities, cross-project intelligence protocol</p>
-        </div>
-        <a href="architecture.md" target="_blank">Open</a>
-      </div>
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Agent Calibration Guide</h3>
-          <p>Conservative vs aggressive vs balanced. When to use each. Anti-rubber-stamp rule.</p>
-        </div>
-        <a href="calibration.md" target="_blank">Open</a>
-      </div>
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Cross-Project Intelligence Protocol</h3>
-          <p>6 detection patterns. How Spark finds connections across 17 projects in one scan.</p>
-        </div>
-        <a href="cross-project.md" target="_blank">Open</a>
-      </div>
-      <div class="resource">
-        <div class="resource-info">
-          <h3>Case Study: Radical Imagination</h3>
-          <p>155K LOC, 17 projects, 1 founder, $20/month. The full story with metrics.</p>
-        </div>
-        <a href="case-study.md" target="_blank">Open</a>
-      </div>
+<!-- WHO IT'S FOR -->
+<div class="section">
+  <h2>Who It's <span>For</span></h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Nonprofit Leaders</h3>
+      <p>One program manager running 5 programs. Spark handles grant strategy, reporting, and operations.</p>
+    </div>
+    <div class="card">
+      <h3>Studio Directors</h3>
+      <p>One creative director across 10 projects. Spark tracks the portfolio, finds cross-project connections, manages outreach.</p>
+    </div>
+    <div class="card">
+      <h3>Solo Founders</h3>
+      <p>Zero employees, maximum ambition. Spark replaces the team you can't afford yet.</p>
+    </div>
+    <div class="card">
+      <h3>Research Labs</h3>
+      <p>One PI with 20 projects. Spark manages literature, grant deadlines, and decision tracking.</p>
     </div>
   </div>
-
-  <div class="section">
-    <h2>Book a Workshop</h2>
-    <p>Ready to give your organization a Spark?</p>
-    <p style="margin-top:12px;">
-      <strong>Email:</strong> <a href="mailto:create@radicalimagination.xyz" style="color:var(--gold);text-decoration:none;">create@radicalimagination.xyz</a><br>
-      <strong>Subject:</strong> "Spark Workshop — [Your Org Name]"
-    </p>
-    <p style="color:var(--muted);margin-top:12px;font-size:0.9rem;">
-      First workshop is free at partner venues. Reach out to discuss.
-    </p>
-  </div>
+</div>
 
 </div>
 
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Build your Spark.</h2>
+  <p>3 hours. Your agents, your data, your organization. You leave with a working system.</p>
+  <div class="cta-row" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <!-- REPLACE THIS HREF WITH YOUR LUMA OR STRIPE LINK -->
+    <a class="btn-primary" href="mailto:create@radicalimagination.xyz?subject=Spark%20Workshop%20—%20Register">Register Now</a>
+    <a class="btn-secondary" href="https://github.com/ShdwSpde/spark-workshop-template" target="_blank">Explore the Repo</a>
+  </div>
+  <div style="font-size:0.8rem;color:var(--dim);margin-top:16px;">NYC · Date TBA · 15 seats</div>
+</div>
+
+<!-- FOOTER -->
 <div class="footer">
   <a href="https://radicalimagination.xyz">Radical Imagination</a> ·
-  <a href="https://github.com/ShdwSpde/spark-workshop-template">GitHub</a><br>
-  Fiscally sponsored by Fractured Atlas 501(c)(3)
+  <a href="https://github.com/ShdwSpde/spark-workshop-template">GitHub</a> ·
+  <a href="materials.html">Workshop Materials</a><br>
+  <span style="margin-top:8px;display:inline-block;">Fiscally sponsored by Fractured Atlas 501(c)(3)</span>
 </div>
 
-</div>
-
-<script>
-// Password gate — same pattern as ops dashboard
-const CORRECT = 'ri2026';
-const COOKIE = 'spark-auth';
-
-function checkPw() {
-  const pw = document.getElementById('pw').value;
-  if (pw === CORRECT) {
-    document.cookie = COOKIE + '=1;max-age=' + (30*86400) + ';path=/';
-    unlock();
-  } else {
-    document.getElementById('error').textContent = 'Invalid code.';
-    document.getElementById('pw').value = '';
-    document.getElementById('pw').focus();
-  }
-}
-
-function unlock() {
-  document.getElementById('gate').style.display = 'none';
-  document.getElementById('content').style.display = 'block';
-}
-
-// Check cookie on load
-if (document.cookie.includes(COOKIE + '=1')) {
-  unlock();
-}
-
-// Learn More button — show workshop info, hide CTA and gate
-document.querySelector('.cta-btn[href="#workshop-info"]')?.addEventListener('click', function(e) {
-  e.preventDefault();
-  document.getElementById('cta-banner').style.display = 'none';
-  document.getElementById('gate').style.display = 'none';
-  document.getElementById('workshop-info').style.display = 'block';
-  document.getElementById('workshop-info').scrollIntoView({behavior:'smooth'});
-});
-</script>
 </body>
 </html>

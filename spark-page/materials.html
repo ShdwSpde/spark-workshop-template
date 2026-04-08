@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark Workshop — Attendee Materials</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #CFB53B;
+  --black: #0D0D0D;
+  --surface: #141414;
+  --text: #E8E8E8;
+  --muted: #888;
+  --dim: #444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); min-height:100vh; }
+.gold-line { height:4px; background:var(--gold); }
+
+#gate {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:40px 20px; text-align:center;
+}
+#gate h1 { font-size:2rem; font-weight:900; color:var(--gold); margin-bottom:8px; }
+#gate .sub { color:var(--muted); margin-bottom:32px; max-width:500px; line-height:1.6; }
+#gate input {
+  padding:14px 20px; width:280px; background:var(--surface); border:2px solid var(--dim);
+  color:var(--text); border-radius:8px; font-size:16px; text-align:center;
+  letter-spacing:4px; font-family:monospace;
+}
+#gate input:focus { border-color:var(--gold); outline:none; }
+#gate input::placeholder { color:var(--dim); letter-spacing:2px; font-size:14px; }
+#gate .error { color:#c44; font-size:13px; margin-top:8px; min-height:20px; }
+
+#content { display:none; }
+.container { max-width:800px; margin:0 auto; padding:40px 20px; }
+.hero { text-align:center; padding:60px 20px 40px; }
+.hero h1 { font-size:2.2rem; font-weight:900; color:var(--gold); margin-bottom:12px; }
+.hero p { color:var(--muted); max-width:550px; margin:0 auto; line-height:1.7; }
+.section { padding:40px 0; border-top:1px solid #222; }
+.section h2 { font-size:1.4rem; font-weight:800; color:var(--gold); margin-bottom:16px; }
+.section p { color:#bbb; line-height:1.7; margin-bottom:12px; }
+.resources { display:flex; flex-direction:column; gap:12px; margin-top:16px; }
+.resource {
+  background:var(--surface); border-radius:8px; padding:20px;
+  border-left:3px solid var(--gold); display:flex; justify-content:space-between;
+  align-items:center; gap:16px;
+}
+.resource-info h3 { font-size:1rem; font-weight:700; margin-bottom:4px; }
+.resource-info p { font-size:0.85rem; color:var(--muted); margin:0; }
+.resource a {
+  padding:8px 16px; background:var(--gold); color:var(--black);
+  text-decoration:none; border-radius:4px; font-size:13px; font-weight:700;
+  white-space:nowrap;
+}
+.resource a:hover { opacity:0.9; }
+.footer {
+  text-align:center; padding:40px 20px; border-top:1px solid #222;
+  font-size:0.8rem; color:var(--dim);
+}
+.footer a { color:var(--gold); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="gold-line"></div>
+
+<div id="gate">
+  <h1>✒️⚡ Workshop Materials</h1>
+  <p class="sub">Enter your workshop access code to view facilitator guides, slide decks, and advanced materials.</p>
+  <input type="password" id="pw" placeholder="access code" autofocus
+         onkeydown="if(event.key==='Enter')checkPw()">
+  <div class="error" id="error"></div>
+</div>
+
+<div id="content">
+
+<div class="hero">
+  <h1>✒️⚡ Spark — Workshop Materials</h1>
+  <p>Facilitator guides, curriculum, slide decks, and advanced materials for workshop attendees.</p>
+</div>
+
+<div class="container">
+
+  <div class="section" style="border-top:none;">
+    <h2>Workshop Materials</h2>
+    <div class="resources">
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Full Curriculum</h3>
+          <p>Keynote structure, 3-hour workshop flow, facilitator notes, revenue model</p>
+        </div>
+        <a href="curriculum.md" target="_blank">Open</a>
+      </div>
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Keynote Slide Deck (26 slides)</h3>
+          <p>60-min talk — Problem, Architecture, Superpowers, Honest Part, Close</p>
+        </div>
+        <a href="keynote-deck.html" target="_blank">Present</a>
+      </div>
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Workshop Template Repo</h3>
+          <p>Fork this — CLAUDE.md, state files, agent templates, memory, protocols</p>
+        </div>
+        <a href="https://github.com/ShdwSpde/spark-workshop-template" target="_blank">GitHub</a>
+      </div>
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Facilitator Guide</h3>
+          <p>Timing cues, troubleshooting, common questions, room setup</p>
+        </div>
+        <a href="facilitator-guide.md" target="_blank">Open</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Advanced Materials</h2>
+    <div class="resources">
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Spark Architecture Deep Dive</h3>
+          <p>9 intelligence upgrades, 5 capabilities, cross-project intelligence protocol</p>
+        </div>
+        <a href="architecture.md" target="_blank">Open</a>
+      </div>
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Agent Calibration Guide</h3>
+          <p>Conservative vs aggressive vs balanced. When to use each. Anti-rubber-stamp rule.</p>
+        </div>
+        <a href="calibration.md" target="_blank">Open</a>
+      </div>
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Cross-Project Intelligence Protocol</h3>
+          <p>6 detection patterns. How Spark finds connections across 17 projects in one scan.</p>
+        </div>
+        <a href="cross-project.md" target="_blank">Open</a>
+      </div>
+      <div class="resource">
+        <div class="resource-info">
+          <h3>Case Study: Radical Imagination</h3>
+          <p>154K LOC, 17 projects, 8 agents, $20/month. The full story with metrics.</p>
+        </div>
+        <a href="case-study.md" target="_blank">Open</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="index.html">Back to Spark</a> ·
+  <a href="https://radicalimagination.xyz">Radical Imagination</a> ·
+  <a href="https://github.com/ShdwSpde/spark-workshop-template">GitHub</a>
+</div>
+
+</div>
+
+<script>
+const CORRECT = 'ri2026';
+const COOKIE = 'spark-materials-auth';
+
+function checkPw() {
+  const pw = document.getElementById('pw').value;
+  if (pw === CORRECT) {
+    document.cookie = COOKIE + '=1;max-age=' + (30*86400) + ';path=/';
+    unlock();
+  } else {
+    document.getElementById('error').textContent = 'Invalid code.';
+    document.getElementById('pw').value = '';
+    document.getElementById('pw').focus();
+  }
+}
+
+function unlock() {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}
+
+if (document.cookie.includes(COOKIE + '=1')) unlock();
+</script>
+</body>
+</html>
