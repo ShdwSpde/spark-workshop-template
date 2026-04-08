@@ -33,10 +33,16 @@ This repo is the template. Fork it. Customize it. Give your org a Spark.
 ├── protocol/
 │   ├── session-start.md         # What happens at the start of every session
 │   └── session-close.md         # What happens at the end of every session
-└── docs/
-    ├── agent-spec-standard.md   # How to define agents (the portable format)
-    ├── open-infrastructure.md   # How .claude/ works as an OS
-    └── case-study-dubois-does-data.md  # One project through all 8 agents
+├── docs/
+│   ├── agent-spec-standard.md   # How to define agents (the portable format)
+│   ├── open-infrastructure.md   # How .claude/ works as an OS
+│   ├── positioning.md           # How Spark differs from CrewAI, LangGraph, AutoGPT
+│   ├── honest-failures.md       # What went wrong and what the system learned
+│   └── case-study-dubois-does-data.md  # One project through all 8 agents
+└── examples/
+    ├── money-agent-grant-strategy.md   # Real grant strategy output
+    ├── validator-review.md             # Real cultural validation review
+    └── cross-project-scan.md           # Real portfolio-wide intelligence scan
 ```
 
 ## What Spark Does (at Radical Imagination)
