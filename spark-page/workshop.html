@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark Workshop — 3-Hour Facilitator & Attendee Guide</title>
+<meta name="description" content="Full 3-hour build curriculum for Spark — agent design, state files, memory, first live session. Facilitator notes + attendee prompts + copy-ready templates.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #CFB53B;
+  --gold-dim: #8a7928;
+  --gold-glow: rgba(207,181,59,0.08);
+  --black: #0D0D0D;
+  --surface: #141414;
+  --surface-2: #1a1a1a;
+  --text: #E8E8E8;
+  --muted: #999;
+  --dim: #555;
+  --border: #222;
+  --facilitator: #C9A227;
+  --attendee: #6AA9F7;
+  --template-bg: #0a0a0a;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); line-height:1.6; }
+a { color:var(--gold); text-decoration:none; }
+a:hover { text-decoration:underline; }
+code { font-family:'JetBrains Mono',monospace; background:var(--surface-2); padding:2px 6px; border-radius:3px; font-size:0.85em; color:#ddd; }
+
+.gold-line { height:4px; background:var(--gold); position:sticky; top:0; z-index:50; }
+
+/* HEADER */
+.topbar {
+  position:sticky; top:4px; z-index:40; background:rgba(13,13,13,0.96);
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
+}
+.topbar-inner {
+  max-width:1060px; margin:0 auto; padding:14px 24px;
+  display:flex; justify-content:space-between; align-items:center; gap:24px;
+  flex-wrap:wrap;
+}
+.brand { font-weight:900; color:var(--gold); font-size:1.05rem; letter-spacing:0.5px; }
+.brand span { color:var(--text); }
+.hour-nav { display:flex; gap:4px; flex-wrap:wrap; }
+.hour-nav a {
+  padding:6px 12px; font-size:0.78rem; font-weight:700; letter-spacing:0.5px;
+  text-transform:uppercase; color:var(--muted); border:1px solid var(--border);
+  border-radius:4px; transition:all 0.15s;
+}
+.hour-nav a:hover { color:var(--gold); border-color:var(--gold-dim); text-decoration:none; }
+
+/* HERO */
+.hero {
+  max-width:820px; margin:0 auto; padding:56px 24px 32px; text-align:center;
+}
+.hero .eyebrow {
+  font-size:0.75rem; color:var(--gold); letter-spacing:3px;
+  text-transform:uppercase; font-weight:700; margin-bottom:12px;
+}
+.hero h1 { font-size:2.4rem; font-weight:900; line-height:1.15; margin-bottom:10px; }
+.hero h1 span { color:var(--gold); }
+.hero .sub { color:var(--muted); font-size:1.05rem; max-width:580px; margin:0 auto; }
+
+/* META ROW */
+.meta-row {
+  max-width:1060px; margin:0 auto; padding:8px 24px 40px;
+  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+}
+.meta-chip {
+  background:var(--surface); border:1px solid var(--border); border-radius:6px;
+  padding:10px 16px; font-size:0.8rem; color:var(--muted);
+}
+.meta-chip b { color:var(--gold); font-weight:700; margin-right:6px; }
+
+/* CONTAINER */
+.container { max-width:1060px; margin:0 auto; padding:0 24px; }
+
+/* PANELS */
+.panel {
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:32px; margin-bottom:20px;
+}
+.panel h2 { font-size:1.6rem; font-weight:900; margin-bottom:6px; }
+.panel h2 span { color:var(--gold); }
+.panel .panel-sub { color:var(--muted); margin-bottom:24px; font-size:0.95rem; }
+
+/* HOUR HEADERS */
+.hour-header {
+  display:flex; align-items:baseline; gap:18px; margin:48px 0 18px;
+  border-bottom:2px solid var(--gold-dim); padding-bottom:14px;
+}
+.hour-badge {
+  background:var(--gold); color:var(--black); font-weight:900;
+  padding:8px 14px; border-radius:6px; font-size:0.85rem;
+  letter-spacing:1px; text-transform:uppercase; flex-shrink:0;
+}
+.hour-header h2 { font-size:1.9rem; font-weight:900; line-height:1.1; }
+.hour-header .hour-tagline { color:var(--muted); font-size:0.95rem; margin-left:auto; font-style:italic; }
+
+/* SEGMENT (each chunk of time in an hour) */
+.segment {
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:24px 28px; margin-bottom:14px; position:relative;
+}
+.segment-head {
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:14px; gap:16px; flex-wrap:wrap;
+}
+.segment-head h3 { font-size:1.15rem; font-weight:800; color:var(--text); }
+.segment-head .time {
+  font-family:'JetBrains Mono',monospace; font-size:0.85rem;
+  color:var(--gold); font-weight:700; white-space:nowrap;
+}
+.segment > p { color:#c5c5c5; margin-bottom:10px; }
+
+/* CALLOUT BOXES */
+.callout {
+  border-left:3px solid var(--gold); padding:14px 18px; margin:12px 0;
+  background:var(--surface-2); border-radius:0 6px 6px 0;
+  font-size:0.92rem;
+}
+.callout.facilitator { border-left-color:var(--facilitator); }
+.callout.attendee { border-left-color:var(--attendee); }
+.callout-label {
+  font-size:0.7rem; font-weight:800; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--facilitator); margin-bottom:6px; display:block;
+}
+.callout.attendee .callout-label { color:var(--attendee); }
+.callout p { color:#c5c5c5; margin-bottom:8px; }
+.callout p:last-child { margin-bottom:0; }
+.callout ul { margin-left:20px; color:#c5c5c5; }
+.callout li { margin-bottom:4px; }
+
+/* TEMPLATE BLOCK */
+.template {
+  background:var(--template-bg); border:1px solid var(--border); border-radius:6px;
+  padding:18px 20px; margin:12px 0; font-family:'JetBrains Mono',monospace;
+  font-size:0.82rem; color:#d0d0d0; overflow-x:auto; white-space:pre;
+  line-height:1.55;
+}
+.template-head {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:8px; font-size:0.75rem; color:var(--gold);
+  letter-spacing:1px; text-transform:uppercase; font-weight:700;
+  font-family:'Inter',sans-serif;
+}
+.copy-btn {
+  background:transparent; color:var(--muted); border:1px solid var(--border);
+  padding:3px 10px; border-radius:4px; font-size:0.7rem; cursor:pointer;
+  font-family:inherit;
+}
+.copy-btn:hover { color:var(--gold); border-color:var(--gold-dim); }
+.copy-btn.copied { color:var(--gold); border-color:var(--gold); }
+
+/* CHECKLIST */
+.checklist { list-style:none; padding:0; }
+.checklist li {
+  padding:10px 0 10px 32px; position:relative; color:#c5c5c5;
+  border-bottom:1px solid var(--border);
+}
+.checklist li:last-child { border-bottom:none; }
+.checklist li::before {
+  content:''; position:absolute; left:0; top:13px;
+  width:18px; height:18px; border:1.5px solid var(--dim);
+  border-radius:4px; background:transparent;
+}
+.checklist li b { color:var(--text); font-weight:700; }
+
+/* TABLE */
+table.tight {
+  width:100%; border-collapse:collapse; margin:14px 0; font-size:0.9rem;
+}
+table.tight td, table.tight th {
+  padding:10px 14px; border-bottom:1px solid var(--border); text-align:left;
+  vertical-align:top;
+}
+table.tight th { color:var(--gold); font-weight:700; font-size:0.78rem; letter-spacing:0.5px; text-transform:uppercase; }
+table.tight td { color:#c5c5c5; }
+table.tight tr:last-child td { border-bottom:none; }
+
+/* TWO COL */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:14px 0; }
+@media (max-width:720px) { .two-col { grid-template-columns:1fr; } }
+
+/* TIPS ROW */
+.tip-row {
+  background:var(--surface-2); border-radius:8px; padding:14px 18px;
+  margin:12px 0; display:flex; gap:12px; align-items:flex-start;
+}
+.tip-row .tip-icon { color:var(--gold); font-weight:900; flex-shrink:0; font-size:1.1rem; }
+.tip-row p { color:#c5c5c5; font-size:0.9rem; margin:0; }
+
+/* FOOTER */
+.footer {
+  text-align:center; padding:48px 24px; border-top:1px solid var(--border);
+  margin-top:80px; color:var(--dim); font-size:0.85rem;
+}
+.footer a { color:var(--gold); }
+
+/* ============================================================ */
+/* TERMINAL MOCKUP                                                */
+/* ============================================================ */
+.term {
+  background:#0a0a0c; border:1px solid #1e1e22; border-radius:10px;
+  box-shadow:0 30px 60px -30px rgba(207,181,59,0.12), 0 0 0 1px rgba(207,181,59,0.04) inset;
+  margin:20px 0; overflow:hidden; font-family:'JetBrains Mono',monospace;
+  max-width:100%;
+}
+.term-chrome {
+  background:linear-gradient(180deg, #16161a 0%, #101014 100%);
+  padding:10px 16px; display:flex; align-items:center; gap:10px;
+  border-bottom:1px solid #1e1e22;
+}
+.term-dots { display:flex; gap:7px; }
+.term-dot { width:11px; height:11px; border-radius:50%; background:#2a2a30; }
+.term-dot.r { background:#e06c6c; } .term-dot.y { background:#d9b24a; } .term-dot.g { background:#6ac28f; }
+.term-title {
+  color:#777; font-size:0.72rem; font-weight:500; margin-left:auto; margin-right:auto;
+  font-family:'Inter',sans-serif; letter-spacing:0.3px;
+}
+.term-badge {
+  font-size:0.65rem; color:var(--gold); background:rgba(207,181,59,0.1);
+  padding:2px 8px; border-radius:3px; font-family:'Inter',sans-serif;
+  font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
+}
+.term-body {
+  padding:20px 22px; color:#d5d5d5; font-size:0.84rem;
+  line-height:1.75; min-height:80px;
+}
+.term-line { display:block; min-height:1.5em; white-space:pre-wrap; word-break:break-word; }
+.term-prompt { color:var(--gold); margin-right:8px; font-weight:700; }
+.term-prompt.user { color:#6aa9f7; }
+.term-cmd { color:#fff; }
+.term-out { color:#a8a8a8; display:block; }
+.term-out.ok { color:#6ac28f; }
+.term-out.warn { color:#d9b24a; }
+.term-out.dim { color:#666; font-style:italic; }
+.term-out.accent { color:var(--gold); }
+.term-cursor {
+  display:inline-block; width:8px; height:1em; background:var(--gold);
+  vertical-align:text-bottom; animation:blink 1s steps(2,end) infinite;
+}
+@keyframes blink { 50% { opacity:0; } }
+
+/* Hero terminal */
+.hero-term { max-width:760px; margin:12px auto 48px; padding:0 24px; }
+.hero-term .term { margin:0; }
+
+/* Inline terminal for each segment */
+.segment .term { margin-top:8px; }
+
+/* ============================================================ */
+/* STATE TREE — builds up visually as hours progress              */
+/* ============================================================ */
+.state-tree {
+  background:#0a0a0c; border:1px solid #1e1e22; border-radius:10px;
+  padding:24px 28px; margin:24px 0;
+  font-family:'JetBrains Mono',monospace; font-size:0.85rem;
+  line-height:1.85; color:#888;
+}
+.state-tree .node {
+  opacity:0.15; transition:opacity 0.6s ease, color 0.6s ease;
+  display:block; color:#555;
+}
+.state-tree .node.lit { opacity:1; color:#d5d5d5; }
+.state-tree .node.gold { color:var(--gold); }
+.state-tree .node .c { color:#555; }
+
+/* ============================================================ */
+/* ALTERNATIVES TO CLAUDE CODE                                    */
+/* ============================================================ */
+.alt-grid {
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+  gap:16px; margin:20px 0;
+}
+.alt-card {
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:22px 24px; transition:border-color 0.2s, transform 0.2s;
+  display:flex; flex-direction:column;
+}
+.alt-card:hover { border-color:var(--gold-dim); transform:translateY(-2px); }
+.alt-head { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:6px; }
+.alt-card h3 { font-size:1.05rem; font-weight:800; color:var(--text); }
+.alt-tier {
+  font-size:0.62rem; font-weight:800; letter-spacing:1px; text-transform:uppercase;
+  padding:3px 7px; border-radius:3px; white-space:nowrap; flex-shrink:0;
+}
+.alt-tier.close { background:rgba(106,194,143,0.12); color:#6ac28f; }
+.alt-tier.partial { background:rgba(217,178,74,0.12); color:#d9b24a; }
+.alt-tier.diy { background:rgba(224,108,108,0.12); color:#e06c6c; }
+.alt-card .sub { font-size:0.8rem; color:var(--dim); margin-bottom:10px; }
+.alt-card p { font-size:0.86rem; color:#c5c5c5; margin-bottom:10px; }
+.alt-card .tradeoff { font-size:0.78rem; color:var(--muted); margin-top:auto; padding-top:10px; border-top:1px dashed var(--border); }
+.alt-card .tradeoff b { color:var(--gold); }
+
+.alt-legend {
+  display:flex; gap:18px; flex-wrap:wrap; font-size:0.75rem; color:var(--muted);
+  margin:10px 0 4px;
+}
+.alt-legend span { display:flex; align-items:center; gap:6px; }
+.alt-legend .sw { width:10px; height:10px; border-radius:2px; }
+.alt-legend .sw.close { background:#6ac28f; }
+.alt-legend .sw.partial { background:#d9b24a; }
+.alt-legend .sw.diy { background:#e06c6c; }
+
+/* Comparison matrix */
+.matrix { width:100%; border-collapse:collapse; margin:20px 0; font-size:0.82rem; }
+.matrix th, .matrix td {
+  padding:10px 12px; border-bottom:1px solid var(--border); text-align:left;
+}
+.matrix th:not(:first-child), .matrix td:not(:first-child) { text-align:center; }
+.matrix th {
+  color:var(--gold); font-weight:700; font-size:0.72rem;
+  letter-spacing:0.5px; text-transform:uppercase; background:var(--surface-2);
+}
+.matrix td:first-child { color:#c5c5c5; font-weight:600; }
+.matrix .yes { color:#6ac28f; font-weight:700; }
+.matrix .no  { color:#666; }
+.matrix .part { color:#d9b24a; font-weight:700; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .term-cursor { animation:none; }
+  .state-tree .node { opacity:1; color:#d5d5d5; transition:none; }
+  .alt-card { transition:none; }
+}
+
+/* PRINT */
+@media print {
+  body { background:white; color:black; font-size:11pt; }
+  .topbar, .hour-nav, .copy-btn { display:none !important; }
+  .gold-line { display:none; }
+  .panel, .segment {
+    background:white; border:1px solid #aaa; break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .hour-header { break-before:page; page-break-before:always; }
+  .hour-header:first-of-type { break-before:auto; page-break-before:auto; }
+  .callout { background:#f8f5e8; border-left-color:#8a7928; }
+  .callout p, .callout li, .segment p, table.tight td { color:#222; }
+  .template { background:#f4f4f4; color:#000; border:1px solid #ccc; }
+  a { color:#000; text-decoration:underline; }
+  .hero h1 span, .hour-header h2, .panel h2 span, .meta-chip b { color:#000; }
+}
+</style>
+</head>
+<body>
+
+<div class="gold-line"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">✒️⚡ Spark Workshop <span>· Facilitator & Attendee Guide</span></div>
+    <div class="hour-nav">
+      <a href="#setup">Setup</a>
+      <a href="#hour-1">Hour 1</a>
+      <a href="#hour-2">Hour 2</a>
+      <a href="#hour-3">Hour 3</a>
+      <a href="#close">Close</a>
+      <a href="#alternatives">If Not Claude</a>
+      <a href="#facilitator">Notes</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="eyebrow">3-Hour Build · Workshop Edition</div>
+  <h1>Give Your Org a <span>Spark</span></h1>
+  <p class="sub">A working multi-agent system for your organization in one sitting. You will leave with agents, state files, memory, and a first session that reads your real data.</p>
+</div>
+
+<div class="meta-row">
+  <div class="meta-chip"><b>Duration</b>3 hours</div>
+  <div class="meta-chip"><b>Format</b>In-person facilitated</div>
+  <div class="meta-chip"><b>Cohort</b>5–15 builders</div>
+  <div class="meta-chip"><b>Prereq</b>Laptop · GitHub · Claude Code</div>
+  <div class="meta-chip"><b>You leave with</b>A running Spark</div>
+</div>
+
+<!-- HERO TERMINAL — preview of what a Spark session looks like -->
+<div class="hero-term">
+  <div class="term" data-seq="hero">
+    <div class="term-chrome">
+      <div class="term-dots"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+      <div class="term-title">~/my-org — claude-code</div>
+      <div class="term-badge">Preview</div>
+    </div>
+    <div class="term-body"></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- SETUP -->
+<!-- ============================================================ -->
+<div class="panel" id="setup">
+  <h2>Pre-Workshop <span>Setup</span></h2>
+  <p class="panel-sub">15-minute window before the workshop starts. Do this while attendees arrive and grab coffee.</p>
+
+  <ul class="checklist">
+    <li><b>Claude Code installed.</b> <code>claude.ai/download</code> — free client, macOS/Windows/Linux. If not installed, use <a href="https://claude.ai" target="_blank">claude.ai</a> in a browser as fallback.</li>
+    <li><b>Claude subscription active.</b> Claude Pro ($20/mo) or a team plan. Facilitator brings 2 comped seats for anyone without.</li>
+    <li><b>GitHub account ready.</b> Able to clone a repo. If not, <code>claude.ai/download</code> covers basics.</li>
+    <li><b>A terminal.</b> macOS Terminal or iTerm; Windows Terminal or WSL; any Linux terminal.</li>
+    <li><b>A text editor.</b> VS Code preferred; any works.</li>
+    <li><b>Clone the template repo.</b> <code>git clone https://github.com/ShdwSpde/spark-workshop-template</code></li>
+    <li><b>Something to build Spark for.</b> Your org, your studio, your research lab, your side project. An idea is enough; real beats hypothetical.</li>
+  </ul>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Walk the room during this 15-min window. Your one job before Hour 1 starts: every attendee has Claude Code open, a terminal open, and the template repo cloned. If one person is behind at the start of Hour 1, they spend the whole workshop catching up. Solve setup first.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- HOUR 1 -->
+<!-- ============================================================ -->
+<div class="hour-header" id="hour-1">
+  <div class="hour-badge">Hour 1</div>
+  <h2>Design Your Agents</h2>
+  <div class="hour-tagline">The roles your org needs but can't afford.</div>
+</div>
+
+<!-- 1.1 WARM-UP -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Warm-Up · Who Does Your Work?</h3>
+    <div class="time">0:00 → 0:10 · 10 min</div>
+  </div>
+
+  <div class="callout attendee">
+    <span class="callout-label">◆ Attendee prompt</span>
+    <p>On a sheet or a blank markdown file, list every role your organization needs but can't afford. Not titles — <em>functions</em>. Who writes the grants? Who designs the lesson? Who checks the cultural accuracy? Who follows up with partners? Who tracks decisions?</p>
+    <p>Target: 5–10 roles. 3 minutes.</p>
+  </div>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Group-share after 3 min. Write the roles on a whiteboard or a shared screen. Call out the patterns: nearly every nonprofit lists <b>Grant Writer</b>, <b>Content/Comms</b>, <b>Research/Archivist</b>, <b>Reviewer</b>, <b>Operations</b>. The pattern is the point — <em>those are their agents</em>.</p>
+  </div>
+</div>
+
+<!-- 1.2 SKILL -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Skill · Agent Design</h3>
+    <div class="time">0:10 → 0:30 · 20 min</div>
+  </div>
+  <p>Walk through the four things every agent needs. Keep this tight — the build session is where it lands, not here.</p>
+
+  <table class="tight">
+    <tr><th>Property</th><th>What it means</th><th>Example</th></tr>
+    <tr><td><b>Scope</b></td><td>What this agent handles (and does not)</td><td>Grant strategy, funder analysis, pricing — not commercial opportunity alignment</td></tr>
+    <tr><td><b>Intent signals</b></td><td>Keywords that route to this agent</td><td>grant, funding, LOI, investor, SAFE, deadline</td></tr>
+    <tr><td><b>Voice</b></td><td>How this agent communicates</td><td>Blunt. Numbers-aware. Reads rejection letters for fun.</td></tr>
+    <tr><td><b>Calibration</b></td><td>Conservative (false negatives preferred), Aggressive (false positives preferred), Balanced</td><td>Aggressive — include long-shot funders; better to surface a bad fit than miss a good one</td></tr>
+  </table>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Show a real agent spec on screen — open <code>agents/example-grant-writer.md</code> from the template. Point out: it's ~100 lines. It's plain English. It's markdown in a git repo. It is <em>not magic</em>. That demystification is the lever.</p>
+    <p>Key line to say out loud: <b>"Agents are personas, not separate programs. Same AI, different hats."</b> This is the idea most people get stuck on.</p>
+  </div>
+</div>
+
+<!-- 1.3 BUILD -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Build · Your Agent Roster</h3>
+    <div class="time">0:30 → 0:55 · 25 min</div>
+  </div>
+
+  <div class="callout attendee">
+    <span class="callout-label">◆ Attendee prompt</span>
+    <p>Pick 3 agents from your warm-up list. For each, fill out the template below as a new file in <code>agents/your-agent-name.md</code>. Name them something that feels alive — <em>The Scout</em>, <em>The Librarian</em>, <em>The Editor</em>. Naming matters. The agent feels real when it has a name.</p>
+  </div>
+
+  <div class="template-head">
+    <span>agents/your-agent-name.md</span>
+    <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+  </div>
+  <pre class="template">## Agent: [Name]
+
+**Scope:** [what this agent handles]
+
+**Intent signals:** [keywords that route to this agent]
+
+**Voice:** [how this agent communicates — 1–2 sentences]
+
+**Calibration:** conservative | balanced | aggressive
+- Reason: [why this calibration for this role]
+
+**Files to read:** [state files this agent depends on]
+
+**Files to write:** [state files this agent updates]
+
+**Handoff block:** [when this agent finishes, who reviews next?]</pre>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Walk the room. Two things to watch for:</p>
+    <ul>
+      <li><b>Scope bleed.</b> If someone's "Content Agent" is also writing grants, split it. Agents with narrow scope perform better.</li>
+      <li><b>Named too generically.</b> "Marketing Agent" is dead on arrival. "The Dispatch" has a voice. Push people to name their agents the way they'd name a character.</li>
+    </ul>
+  </div>
+
+  <!-- Mock: what an agent spec looks like -->
+  <div class="term" data-seq="agent">
+    <div class="term-chrome">
+      <div class="term-dots"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+      <div class="term-title">agents/the-scout.md — vs code</div>
+      <div class="term-badge">Example</div>
+    </div>
+    <div class="term-body"></div>
+  </div>
+</div>
+
+<!-- 1.4 CHECK-IN -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Check-In · Group Share</h3>
+    <div class="time">0:55 → 1:00 · 5 min</div>
+  </div>
+  <p>2–3 volunteers share their agent rosters. Group gives feedback on naming, scope, and calibration. Keep the energy high — this is the first time attendees hear their own ideas mirrored back.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- HOUR 2 -->
+<!-- ============================================================ -->
+<div class="hour-header" id="hour-2">
+  <div class="hour-badge">Hour 2</div>
+  <h2>Build Your State Layer</h2>
+  <div class="hour-tagline">The state files ARE the institution.</div>
+</div>
+
+<!-- 2.1 INTRO -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Intro · The State IS the Institution</h3>
+    <div class="time">1:00 → 1:05 · 5 min</div>
+  </div>
+  <p>One sentence to say: <b>"If your AI forgets everything between sessions, it's not a colleague — it's a stranger you brief every morning. The state layer is what turns it into a colleague."</b></p>
+  <p>Show the file tree. Every agent reads the same files. Every agent writes to them. No database, no vendor lock-in. Just markdown in a git repo.</p>
+</div>
+
+<!-- 2.2 SKILL -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Skill · State File Anatomy</h3>
+    <div class="time">1:05 → 1:20 · 15 min</div>
+  </div>
+  <p>Walk through the 4 files every Spark needs. Keep each to 2 minutes — they'll populate them next.</p>
+
+  <table class="tight">
+    <tr><th>File</th><th>What it holds</th><th>Who writes to it</th></tr>
+    <tr><td><code>state/org-state.md</code></td><td>The map. Current priorities, active projects, upcoming deadlines. 80 lines max — if it's longer, archive.</td><td>Every agent at session close</td></tr>
+    <tr><td><code>state/portfolio.md</code></td><td>Every project — status, owner, health, links. The "what exists" doc.</td><td>Collective Manager agent</td></tr>
+    <tr><td><code>state/last-session.md</code></td><td>15 lines that give next session a running start. What shipped, what's blocked, what's next.</td><td>Whichever agent closed the last session</td></tr>
+    <tr><td><code>state/decision-journal.md</code></td><td>Every non-trivial decision with reasoning, alternatives, confidence, reversibility.</td><td>Any agent making a decision</td></tr>
+  </table>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Show one real <code>decision-journal.md</code> entry on screen. People light up when they see it's just plain English with a confidence score. The bar for authoring one is low. The benefit is compounding — six months from now when someone asks "why did we choose this?", the answer is searchable.</p>
+  </div>
+</div>
+
+<!-- 2.3 BUILD STATE -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Build · Your State Files</h3>
+    <div class="time">1:20 → 1:50 · 30 min</div>
+  </div>
+
+  <div class="callout attendee">
+    <span class="callout-label">◆ Attendee prompt</span>
+    <p>Create the four files below. Populate them with <em>your real data</em> — not placeholders. The portfolio is the hardest. Most people have never written all their projects in one place. Do it now. 20 minutes on <code>portfolio.md</code>, 10 minutes on the rest.</p>
+  </div>
+
+  <div class="template-head">
+    <span>state/org-state.md</span>
+    <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+  </div>
+  <pre class="template">---
+version: 1
+last_modified: YYYY-MM-DD
+---
+
+# [Org Name] — State
+
+## Top 3 Priorities This Week
+1. [priority + why + by when]
+2. [priority + why + by when]
+3. [priority + why + by when]
+
+## Active Projects (live status only)
+- [Project A] — [1-line status] — owner: [name]
+- [Project B] — [1-line status] — owner: [name]
+
+## Upcoming Deadlines (next 30 days)
+- YYYY-MM-DD · [what's due] · [who owes what]
+
+## Open Decisions
+- [decision being considered + confidence level]
+
+## Stale Flags
+- [files not updated in 7+ days]</pre>
+
+  <div class="template-head">
+    <span>state/portfolio.md</span>
+    <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+  </div>
+  <pre class="template"># Portfolio
+
+| Project | Status | Owner | Next Milestone | Link |
+|---------|--------|-------|----------------|------|
+| [Name]  | active / paused / shipped / parked | [who] | [what + when] | [URL] |
+| [Name]  | ... | ... | ... | ... |
+
+## Status Definitions
+- **active** — work this week
+- **paused** — will resume; reason logged
+- **shipped** — released and in maintenance
+- **parked** — may revive; keep minimal upkeep only</pre>
+
+  <div class="template-head">
+    <span>state/last-session.md</span>
+    <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+  </div>
+  <pre class="template"># Last Session — YYYY-MM-DD
+
+## Shipped
+- [one line per thing]
+
+## Blocked
+- [thing + what's blocking + who unblocks]
+
+## Next Session
+- [one priority + why]</pre>
+
+  <div class="template-head">
+    <span>state/decision-journal.md</span>
+    <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+  </div>
+  <pre class="template"># Decision Journal
+
+## YYYY-MM-DD · [Decision in one line]
+- **Chose:** [option]
+- **Alternatives:** [options considered + why rejected]
+- **Reasoning:** [why this one]
+- **Confidence:** N/5
+- **Reversible:** yes / no / partially
+- **Owner:** [who]
+- **Status:** active / superseded / retired</pre>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Walk the room every 10 minutes. Most people stall on the portfolio — they realize they have 12 things active and hadn't admitted it. That stall is productive. Don't rescue them. Let them write it all down. That's the workshop doing its job.</p>
+  </div>
+
+  <!-- State tree that grows as you scroll -->
+  <div class="state-tree" data-seq="tree">
+    <span class="node" data-delay="0">my-org/</span>
+    <span class="node" data-delay="120"><span class="c">├── </span>CLAUDE.md</span>
+    <span class="node" data-delay="240"><span class="c">├── </span>agents/</span>
+    <span class="node" data-delay="360"><span class="c">│   ├── </span>the-scout.md<span class="c"> · grant + deadline</span></span>
+    <span class="node" data-delay="480"><span class="c">│   ├── </span>the-dispatch.md<span class="c"> · content + comms</span></span>
+    <span class="node" data-delay="600"><span class="c">│   └── </span>the-editor.md<span class="c"> · review + QA</span></span>
+    <span class="node" data-delay="720"><span class="c">├── </span>state/</span>
+    <span class="node" data-delay="840"><span class="c">│   ├── </span>org-state.md<span class="c"> · 47 lines live</span></span>
+    <span class="node" data-delay="960"><span class="c">│   ├── </span>portfolio.md<span class="c"> · 12 projects</span></span>
+    <span class="node gold" data-delay="1080"><span class="c">│   ├── </span>last-session.md<span class="c"> · YYYY-MM-DD</span></span>
+    <span class="node" data-delay="1200"><span class="c">│   └── </span>decision-journal.md</span>
+    <span class="node" data-delay="1320"><span class="c">├── </span>memory/</span>
+    <span class="node" data-delay="1440"><span class="c">│   ├── </span>MEMORY.md<span class="c"> · 3 seeds</span></span>
+    <span class="node" data-delay="1560"><span class="c">│   ├── </span>user_communication_style.md</span>
+    <span class="node" data-delay="1680"><span class="c">│   └── </span>feedback_no_corporate_speak.md</span>
+    <span class="node" data-delay="1800"><span class="c">└── </span>.git/<span class="c"> · every session committed</span></span>
+  </div>
+</div>
+
+<!-- 2.4 MEMORY -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Build · Your Memory Layer</h3>
+    <div class="time">1:50 → 2:00 · 10 min</div>
+  </div>
+
+  <div class="callout attendee">
+    <span class="callout-label">◆ Attendee prompt</span>
+    <p>Create <code>memory/MEMORY.md</code> with 3 seed memories. One of each type:</p>
+    <ul>
+      <li><b>User preference</b> — something about how you want to be communicated with</li>
+      <li><b>Project context</b> — a fact about something in flight (a deadline, a key stakeholder, a constraint)</li>
+      <li><b>Feedback</b> — something you've corrected before and don't want to re-correct</li>
+    </ul>
+  </div>
+
+  <div class="template-head">
+    <span>memory/MEMORY.md</span>
+    <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+  </div>
+  <pre class="template"># Memory Index
+
+## User
+- [user_communication_style.md] — one-line hook
+
+## Project
+- [project_[name].md] — one-line hook
+
+## Feedback
+- [feedback_[topic].md] — one-line hook</pre>
+
+  <p>Each entry in the index points to a standalone file with the full memory. Keep the index short — it loads every session.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- HOUR 3 -->
+<!-- ============================================================ -->
+<div class="hour-header" id="hour-3">
+  <div class="hour-badge">Hour 3</div>
+  <h2>Connect and Operate</h2>
+  <div class="hour-tagline">The AI reads your data — and the lights come on.</div>
+</div>
+
+<!-- 3.1 GMAIL MCP -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Skill · Gmail MCP Integration</h3>
+    <div class="time">2:00 → 2:15 · 15 min</div>
+  </div>
+
+  <p>Live demo. Connect Gmail MCP to Claude Code. Show: search email, read a thread, create a draft. The rule every attendee needs to hear out loud:</p>
+
+  <div class="tip-row">
+    <div class="tip-icon">⚑</div>
+    <p><b>Drafts only. Never sends.</b> Tone is personal. Relationships are human. Sent emails can't be unsent. The AI drafts better than you'd write from cold — because it has your state context. But the human sends.</p>
+  </div>
+
+  <div class="callout attendee">
+    <span class="callout-label">◆ Attendee prompt</span>
+    <p>Connect your own Gmail if you're ready. If the OAuth flow is flaky, skip — you can do it after the workshop. Connection isn't the point. Seeing the draft come out is.</p>
+  </div>
+</div>
+
+<!-- 3.2 SESSION PROTOCOL -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Skill · The Session Protocol</h3>
+    <div class="time">2:15 → 2:25 · 10 min</div>
+  </div>
+
+  <p>Walk through how every session should start and end. The protocol is the discipline — without it, the system drifts.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="template-head"><span>Session START</span></div>
+      <pre class="template">1. Read state/org-state.md
+2. Read state/last-session.md
+3. Scan memory/MEMORY.md
+4. Check for contradictions
+   (portfolio vs validation-log, etc.)
+5. Flag deadlines ≤7 days
+6. Flag state files stale &gt;7 days
+7. Brief the human: what's loaded,
+   what's flagged, what's first.</pre>
+    </div>
+    <div>
+      <div class="template-head"><span>Session CLOSE</span></div>
+      <pre class="template">1. Update state files that changed
+2. Log any decisions made
+3. Draft morning email (review &amp; send)
+4. Write next session's first prompt
+   into last-session.md
+5. Commit + push
+6. Done. Close the terminal.</pre>
+    </div>
+  </div>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>The hardest sell here isn't technical — it's the <em>every session</em> part. Participants nod during the workshop and then skip it on Monday. Call it out: <b>"The protocol is why this works. Skip the close checklist once and you'll be debugging stale state a week later."</b></p>
+  </div>
+</div>
+
+<!-- 3.3 FIRST SESSION -->
+<div class="segment">
+  <div class="segment-head">
+    <h3>Build · Your First Spark Session</h3>
+    <div class="time">2:25 → 2:50 · 25 min</div>
+  </div>
+
+  <p><b>This is the moment.</b> When the AI reads the attendee's own data and responds with intelligence about <em>their</em> organization, it clicks. Nothing you can say in Hour 1 or 2 replaces this.</p>
+
+  <div class="callout attendee">
+    <span class="callout-label">◆ Attendee prompt — do these in order</span>
+    <ol style="margin-left:20px;">
+      <li>Open Claude Code. Point it at the directory with your CLAUDE.md + state files.</li>
+      <li>Start a session. Ask: <code>"What's the status of my projects?"</code></li>
+      <li>Watch the AI read your <code>portfolio.md</code> and respond in the voice of your first agent.</li>
+      <li>Follow up: <code>"Draft an email to [real person] about [real project]. Warm but direct."</code></li>
+      <li>Read the draft. Do not send. Note what's right and what's wrong.</li>
+      <li>Tell the AI what's wrong and ask for v2. Watch it incorporate the correction.</li>
+    </ol>
+  </div>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note</span>
+    <p>Walk the room. You're watching for the <em>face</em>. The moment someone's AI responds to their real org data, their face changes. Catch it. Name it. Ask them: <b>"What just surprised you?"</b> That answer is the testimonial.</p>
+    <p>If someone's session isn't working — 9/10 times the CLAUDE.md isn't pointing to the state files, or the state files are empty. Check those two.</p>
+  </div>
+
+  <!-- Mock: first live session -->
+  <div class="term" data-seq="session">
+    <div class="term-chrome">
+      <div class="term-dots"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span></div>
+      <div class="term-title">~/my-org — claude-code</div>
+      <div class="term-badge">The moment</div>
+    </div>
+    <div class="term-body"></div>
+  </div>
+</div>
+
+<!-- 3.4 CLOSE -->
+<div class="segment" id="close">
+  <div class="segment-head">
+    <h3>Reflection &amp; Close</h3>
+    <div class="time">2:50 → 3:00 · 10 min</div>
+  </div>
+
+  <div class="callout facilitator">
+    <span class="callout-label">⚑ Facilitator note — testimonial capture</span>
+    <p>The last 10 minutes are the highest-leverage 10 minutes in the workshop. Ask these three questions out loud, in order. Give people 30 seconds to think before answering. Write the answers down or have everyone drop them in a shared Google Form.</p>
+    <ol style="margin-left:20px;">
+      <li><b>What's the one thing you'll use on Monday?</b></li>
+      <li><b>What almost didn't work for you today?</b></li>
+      <li><b>Can we quote you? (yes / yes with attribution / no)</b></li>
+    </ol>
+    <p>Q1 gives you outcomes. Q2 gives you the next workshop iteration. Q3 gives you the testimonial wall.</p>
+  </div>
+
+  <p>Close the workshop with one line:</p>
+  <div class="tip-row">
+    <div class="tip-icon">⚑</div>
+    <p><b>"You just built the skeleton. The muscle grows every session you use it. Go run your first real session tonight."</b></p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- IF NOT CLAUDE CODE -->
+<!-- ============================================================ -->
+<div class="panel" id="alternatives" style="margin-top:48px;">
+  <h2>If Not <span>Claude Code</span></h2>
+  <p class="panel-sub">Spark is a <em>pattern</em> — specialized agents + shared markdown state + persistent memory + session protocol. The pattern is more important than the tool. Here's how to get 60–95% of it with something else, and what you give up.</p>
+
+  <div class="alt-legend">
+    <span><span class="sw close"></span> Close to 1:1</span>
+    <span><span class="sw partial"></span> Partial — some features missing</span>
+    <span><span class="sw diy"></span> DIY — you build the scaffolding</span>
+  </div>
+
+  <div class="alt-grid">
+
+    <div class="alt-card">
+      <div class="alt-head">
+        <h3>Cline</h3>
+        <span class="alt-tier close">Close</span>
+      </div>
+      <div class="sub">Open-source Claude Code alternative · VS Code extension</div>
+      <p>Works with Anthropic, OpenAI, Gemini, local models via Ollama, or anything OpenAI-compatible. Reads/writes files, runs terminal commands, supports MCP servers. Essentially Claude Code without the desktop app wrapper.</p>
+      <div class="tradeoff"><b>Tradeoff:</b> You manage the API key and pay per-token directly. No built-in subscription simplicity. MCP config is manual.</div>
+    </div>
+
+    <div class="alt-card">
+      <div class="alt-head">
+        <h3>Aider</h3>
+        <span class="alt-tier close">Close</span>
+      </div>
+      <div class="sub">Terminal-first AI coding assistant · git-native</div>
+      <p>Runs in your terminal. Auto-commits every change with a readable message. Supports Claude, GPT-4, Gemini, local models. The git-native discipline Spark needs is baked in by default.</p>
+      <div class="tradeoff"><b>Tradeoff:</b> Coding-focused — you build the agent-routing layer yourself via prompt templates. No MCP today (but you can pipe shell tools).</div>
+    </div>
+
+    <div class="alt-card">
+      <div class="alt-head">
+        <h3>ChatGPT Projects + Custom GPTs</h3>
+        <span class="alt-tier partial">Partial</span>
+      </div>
+      <div class="sub">OpenAI Plus · browser-based</div>
+      <p>Projects give you persistent context per-folder. Custom GPTs let you define agent personas. File upload for state. Works without any local setup.</p>
+      <div class="tradeoff"><b>Tradeoff:</b> No local file writes — you can't have the AI modify your actual state files. Memory is OpenAI-hosted, not a git repo you own. No MCP. No true session continuity beyond their memory.</div>
+    </div>
+
+    <div class="alt-card">
+      <div class="alt-head">
+        <h3>Cursor / Windsurf</h3>
+        <span class="alt-tier partial">Partial</span>
+      </div>
+      <div class="sub">AI-first IDE · subscription</div>
+      <p>Excellent for file reading and editing. Agent mode can run commands. Supports Claude, GPT, Gemini. Great for developers who want the IDE experience and are already coding.</p>
+      <div class="tradeoff"><b>Tradeoff:</b> Optimized for coding, not organizational ops. No persistent memory across sessions by default — you rebuild context each time. MCP support is newer, less mature.</div>
+    </div>
+
+    <div class="alt-card">
+      <div class="alt-head">
+        <h3>Gemini CLI</h3>
+        <span class="alt-tier partial">Partial</span>
+      </div>
+      <div class="sub">Google's terminal AI · free tier available</div>
+      <p>Ships with a generous free tier. Reads files, runs commands, has a built-in tool system. If your org lives in Google Workspace, the Google Docs / Drive / Calendar integration pulls through naturally.</p>
+      <div class="tradeoff"><b>Tradeoff:</b> Less mature ecosystem for MCP and multi-agent patterns. You hand-roll the agent routing layer. Best if you're Google-native and budget-constrained.</div>
+    </div>
+
+    <div class="alt-card">
+      <div class="alt-head">
+        <h3>LangGraph / CrewAI / AutoGen</h3>
+        <span class="alt-tier diy">DIY</span>
+      </div>
+      <div class="sub">Python frameworks · self-hosted</div>
+      <p>Maximum flexibility. Define agents as code, route between them with graphs, run locally or on your infra. Every major pattern (handoffs, memory, tool use) is configurable.</p>
+      <div class="tradeoff"><b>Tradeoff:</b> Python engineer required. You build the file-system integration, the session protocol, the memory layer, the UI. For a 3-person technical team: worth it. For a solo nonprofit leader: too heavy.</div>
+    </div>
+
+  </div>
+
+  <h3 style="color:var(--gold);margin-top:32px;margin-bottom:10px;font-size:1.05rem;">The capability matrix</h3>
+  <table class="matrix">
+    <tr>
+      <th>Capability</th>
+      <th>Claude<br>Code</th>
+      <th>Cline</th>
+      <th>Aider</th>
+      <th>ChatGPT<br>Projects</th>
+      <th>Cursor</th>
+      <th>Gemini<br>CLI</th>
+      <th>LangGraph<br>/Crew</th>
+    </tr>
+    <tr><td>Reads local files</td><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td><td class="no">—</td><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+    <tr><td>Writes local files</td><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td><td class="no">—</td><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+    <tr><td>Runs terminal commands</td><td class="yes">●</td><td class="yes">●</td><td class="part">◐</td><td class="no">—</td><td class="yes">●</td><td class="yes">●</td><td class="yes">●</td></tr>
+    <tr><td>MCP servers</td><td class="yes">●</td><td class="yes">●</td><td class="no">—</td><td class="no">—</td><td class="part">◐</td><td class="part">◐</td><td class="part">◐</td></tr>
+    <tr><td>Persistent memory (cross-session)</td><td class="yes">●</td><td class="part">◐</td><td class="part">◐</td><td class="part">◐</td><td class="no">—</td><td class="part">◐</td><td class="yes">●</td></tr>
+    <tr><td>Git-native commits</td><td class="yes">●</td><td class="part">◐</td><td class="yes">●</td><td class="no">—</td><td class="part">◐</td><td class="part">◐</td><td class="part">◐</td></tr>
+    <tr><td>Multi-agent routing</td><td class="yes">●</td><td class="part">◐</td><td class="part">◐</td><td class="part">◐</td><td class="no">—</td><td class="part">◐</td><td class="yes">●</td></tr>
+    <tr><td>Free or low-cost tier</td><td class="part">◐</td><td class="yes">●</td><td class="yes">●</td><td class="part">◐</td><td class="no">—</td><td class="yes">●</td><td class="yes">●</td></tr>
+    <tr><td>Runs without coding</td><td class="yes">●</td><td class="part">◐</td><td class="no">—</td><td class="yes">●</td><td class="part">◐</td><td class="part">◐</td><td class="no">—</td></tr>
+  </table>
+  <p style="font-size:0.75rem;color:var(--dim);margin-top:6px;"><b>●</b> full support · <b>◐</b> partial / setup required · <b>—</b> not supported</p>
+
+  <h3 style="color:var(--gold);margin-top:32px;margin-bottom:10px;font-size:1.05rem;">Which one for whom?</h3>
+  <table class="tight">
+    <tr><th>If you are…</th><th>Start with…</th><th>Why</th></tr>
+    <tr><td>A solo nonprofit leader, non-technical</td><td><b>Claude Code</b></td><td>Lowest setup, MCP ecosystem handles Gmail + Calendar out of the box. $20/mo covers it.</td></tr>
+    <tr><td>A solo founder with API-level budget concerns</td><td><b>Cline + Gemini API</b></td><td>Free tier API + open-source client. Same capabilities, 80% of the polish, $0–$5/mo.</td></tr>
+    <tr><td>A developer already living in the terminal</td><td><b>Aider</b></td><td>Git-native by default. The session discipline Spark preaches is automatic here.</td></tr>
+    <tr><td>A team of 2–3 engineers</td><td><b>LangGraph or CrewAI</b></td><td>You have the skill to build. You'll want the control. The ceiling is higher than any managed tool.</td></tr>
+    <tr><td>Someone allergic to terminals</td><td><b>ChatGPT Projects + Custom GPTs</b></td><td>Browser-only. You lose file-system ops, but the agent-persona + persistent-context pattern still works for planning, drafting, research.</td></tr>
+  </table>
+
+  <div class="tip-row" style="margin-top:24px;">
+    <div class="tip-icon">⚑</div>
+    <p><b>The architecture is the point, not the tool.</b> Markdown state files live in any repo. Agent specs are plain text. The session protocol is a checklist. You can build a Spark on any stack that reads and writes files. Claude Code is the fastest path in 2026 — not the only path.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- FACILITATOR NOTES (GENERAL) -->
+<!-- ============================================================ -->
+<div class="panel" id="facilitator" style="margin-top:48px;">
+  <h2>Facilitator <span>Notes</span></h2>
+  <p class="panel-sub">Context, contingencies, and the stuff that only matters on the day.</p>
+
+  <h3 style="color:var(--gold);margin-top:16px;margin-bottom:10px;font-size:1.05rem;">Room setup</h3>
+  <ul class="checklist">
+    <li><b>Tables in a horseshoe.</b> You want to see every laptop screen without walking around a wall of monitors.</li>
+    <li><b>Projector or large display</b> with HDMI reachable from your seat. Test the resolution before attendees arrive.</li>
+    <li><b>Power strips.</b> One per two attendees. Claude Code + VS Code drains batteries fast.</li>
+    <li><b>Wi-Fi credentials visible.</b> Write on a card, tape to every table.</li>
+    <li><b>Snacks + water within reach.</b> Nobody leaves the room during Hour 3.</li>
+  </ul>
+
+  <h3 style="color:var(--gold);margin-top:24px;margin-bottom:10px;font-size:1.05rem;">Common questions (and the short answer)</h3>
+  <table class="tight">
+    <tr><th>Question</th><th>Short answer</th></tr>
+    <tr><td>"Can I use GPT / Gemini instead of Claude?"</td><td>Yes. The pattern works with any LLM that has tool use. Claude Code is recommended because MCP integrations are built-in.</td></tr>
+    <tr><td>"Does this work for a team, not just a solo founder?"</td><td>Yes. Each member gets their own Spark; state files are shared via git. Federated agents, shared institutional memory.</td></tr>
+    <tr><td>"What if I'm not technical?"</td><td>The workshop requires basic comfort with a text editor and terminal. No coding.</td></tr>
+    <tr><td>"Is this the same as using ChatGPT?"</td><td>No. ChatGPT forgets between conversations. Spark has persistent state, memory across sessions, multiple agent personas, and tool integrations. Stranger vs. COO.</td></tr>
+    <tr><td>"How much does it cost to run?"</td><td>~$20/month for Claude Pro. MCP integrations (Gmail, Calendar, Drive) are free via OAuth. Git repo is free.</td></tr>
+  </table>
+
+  <h3 style="color:var(--gold);margin-top:24px;margin-bottom:10px;font-size:1.05rem;">Timing drift — how to recover</h3>
+  <ul class="checklist">
+    <li><b>Running 15 min long in Hour 1?</b> Cut the check-in from 5 min to 2. Move the saved time into Hour 2's portfolio build.</li>
+    <li><b>Running 15 min long in Hour 2?</b> Skip the <code>decision-journal.md</code> template — put it in the follow-up email instead.</li>
+    <li><b>Running 15 min long in Hour 3?</b> Drop Gmail MCP from a live demo to "I'll show this in the follow-up." Never cut the first-session moment — that's the workshop.</li>
+  </ul>
+
+  <h3 style="color:var(--gold);margin-top:24px;margin-bottom:10px;font-size:1.05rem;">What every attendee leaves with</h3>
+  <ol style="margin-left:20px;color:#c5c5c5;line-height:1.9;">
+    <li>A working <code>CLAUDE.md</code> with their org's instructions</li>
+    <li>3–5 agent definitions tailored to their organization</li>
+    <li>State files populated with their real data</li>
+    <li>A memory layer with initial entries</li>
+    <li>A session protocol template</li>
+    <li>(Optional) Gmail MCP connected</li>
+    <li>The workshop template repo for reference</li>
+    <li>Confidence that the rest is buildable in a weekend</li>
+  </ol>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="index.html">← Back to Spark</a> ·
+  <a href="curriculum.md">Full Curriculum (MD)</a> ·
+  <a href="keynote-deck.html">60-min Keynote Deck</a> ·
+  <a href="https://github.com/ShdwSpde/spark-workshop-template" target="_blank">Template Repo</a><br>
+  <span style="margin-top:10px;display:inline-block;">Radical Imagination · Fiscally sponsored by Fractured Atlas 501(c)(3)</span>
+</div>
+
+</div>
+
+<script>
+function copyTemplate(btn) {
+  const pre = btn.closest('.template-head').nextElementSibling;
+  const txt = pre.textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const label = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = label;
+      btn.classList.remove('copied');
+    }, 1600);
+  });
+}
+
+/* ============================================================ */
+/* TERMINAL ANIMATION                                             */
+/* Each "sequence" is a list of steps. Steps are:                 */
+/*   { t: 'cmd',   txt: 'claude' }     // typed after $ prompt    */
+/*   { t: 'out',   txt: '...', cls: '' }  // agent/system output  */
+/*   { t: 'user',  txt: '...' }        // user reply (> prompt)   */
+/*   { t: 'pause', ms: 400 }                                      */
+/* ============================================================ */
+
+const SEQUENCES = {
+  hero: [
+    { t: 'cmd', txt: 'claude' },
+    { t: 'pause', ms: 260 },
+    { t: 'out', txt: 'Reading state files…', cls: 'dim' },
+    { t: 'pause', ms: 340 },
+    { t: 'out', txt: '✓ portfolio.md · 12 projects loaded', cls: 'ok' },
+    { t: 'out', txt: '✓ last-session.md · 2026-04-17', cls: 'ok' },
+    { t: 'out', txt: '✓ memory/MEMORY.md · 30 entries indexed', cls: 'ok' },
+    { t: 'pause', ms: 380 },
+    { t: 'out', txt: '' },
+    { t: 'out', txt: 'You have 2 deadlines in the next 7 days.', cls: 'accent' },
+    { t: 'out', txt: 'Mellon LOI — 5 days out · not started' },
+    { t: 'out', txt: 'Board retreat prep — unscheduled' },
+    { t: 'pause', ms: 240 },
+    { t: 'out', txt: 'Which do you want to tackle first?' },
+    { t: 'pause', ms: 420 },
+    { t: 'user', txt: 'Mellon LOI. Draft an outline from the portfolio.' },
+    { t: 'pause', ms: 260 },
+    { t: 'out', txt: 'Routing to Money Agent…', cls: 'dim' },
+    { t: 'pause', ms: 220 },
+    { t: 'out', txt: 'Drafting. Scope: $50K, 18 months.', cls: 'ok' },
+  ],
+  agent: [
+    { t: 'out', txt: '## Agent: The Scout', cls: 'accent' },
+    { t: 'out', txt: '' },
+    { t: 'out', txt: '**Scope:** Find funders · scan deadlines · draft LOIs' },
+    { t: 'out', txt: '**Intent signals:** grant, funding, LOI, deadline, fellowship' },
+    { t: 'out', txt: '**Voice:** Blunt. Numbers-aware. Reads rejection letters for fun.' },
+    { t: 'out', txt: '**Calibration:** aggressive' },
+    { t: 'out', txt: '  - Include long-shot funders. Better to surface a bad fit' },
+    { t: 'out', txt: '  - than miss a good one.' },
+    { t: 'out', txt: '**Reads:** portfolio.md, org-state.md, grants/' },
+    { t: 'out', txt: '**Writes:** grants/, decision-journal.md' },
+  ],
+  session: [
+    { t: 'user', txt: 'What\'s the status of my projects?' },
+    { t: 'pause', ms: 280 },
+    { t: 'out', txt: 'Reading state/portfolio.md…', cls: 'dim' },
+    { t: 'out', txt: 'Reading state/org-state.md…', cls: 'dim' },
+    { t: 'pause', ms: 260 },
+    { t: 'out', txt: '' },
+    { t: 'out', txt: 'Active projects (3 of 12):', cls: 'accent' },
+    { t: 'out', txt: '  1. Fall fundraiser — LOI due in 5 days' },
+    { t: 'out', txt: '  2. Summer camp recruitment — 18 applicants, target 30' },
+    { t: 'out', txt: '  3. Board retreat — unscheduled' },
+    { t: 'pause', ms: 360 },
+    { t: 'out', txt: 'Your priority this week is the Fall fundraiser LOI.', cls: 'warn' },
+    { t: 'out', txt: 'Want me to draft a first pass from the portfolio?' },
+    { t: 'pause', ms: 420 },
+    { t: 'user', txt: 'Yes. Warm but direct.' },
+    { t: 'pause', ms: 260 },
+    { t: 'out', txt: 'Drafting.', cls: 'dim' },
+  ],
+};
+
+function play(termEl, seq) {
+  const body = termEl.querySelector('.term-body');
+  body.innerHTML = '';
+  let i = 0;
+  const step = () => {
+    if (i >= seq.length) {
+      // final cursor on last line
+      const last = body.lastElementChild;
+      if (last) last.insertAdjacentHTML('beforeend', ' <span class="term-cursor"></span>');
+      return;
+    }
+    const s = seq[i++];
+    if (s.t === 'pause') { setTimeout(step, s.ms); return; }
+    const line = document.createElement('span');
+    line.className = 'term-line';
+    if (s.t === 'cmd') {
+      line.innerHTML = '<span class="term-prompt">$</span><span class="term-cmd"></span>';
+      body.appendChild(line);
+      typeInto(line.querySelector('.term-cmd'), s.txt, step);
+      return;
+    }
+    if (s.t === 'user') {
+      line.innerHTML = '<span class="term-prompt user">&gt;</span><span class="term-cmd"></span>';
+      body.appendChild(line);
+      typeInto(line.querySelector('.term-cmd'), s.txt, step);
+      return;
+    }
+    // output
+    line.className += ' term-out' + (s.cls ? ' ' + s.cls : '');
+    line.textContent = s.txt || '\u00a0';
+    body.appendChild(line);
+    setTimeout(step, 60);
+  };
+  step();
+}
+
+function typeInto(el, text, done) {
+  if (prefersReduced()) { el.textContent = text; setTimeout(done, 80); return; }
+  let i = 0;
+  const tick = () => {
+    if (i >= text.length) { setTimeout(done, 120); return; }
+    el.textContent += text[i++];
+    setTimeout(tick, 22 + Math.random() * 30);
+  };
+  tick();
+}
+
+function prefersReduced() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/* Play terminal when scrolled into view (once per terminal) */
+const seen = new WeakSet();
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (!e.isIntersecting || seen.has(e.target)) return;
+    seen.add(e.target);
+    const key = e.target.dataset.seq;
+    const seq = SEQUENCES[key];
+    if (seq) play(e.target, seq);
+  });
+}, { threshold: 0.35 });
+
+document.querySelectorAll('.term[data-seq]').forEach((t) => io.observe(t));
+
+/* State tree — light up nodes by delay when scrolled in */
+const treeIO = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    const nodes = e.target.querySelectorAll('.node');
+    if (prefersReduced()) { nodes.forEach(n => n.classList.add('lit')); return; }
+    nodes.forEach((n) => {
+      const d = parseInt(n.dataset.delay || '0', 10);
+      setTimeout(() => n.classList.add('lit'), d);
+    });
+    treeIO.unobserve(e.target);
+  });
+}, { threshold: 0.25 });
+
+document.querySelectorAll('.state-tree').forEach((t) => treeIO.observe(t));
+</script>
+
+</body>
+</html>
