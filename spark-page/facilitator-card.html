@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark Workshop — Facilitator Cheat Sheet (Print)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#CFB53B; --black:#0D0D0D; --text:#E8E8E8; --muted:#999; --border:#222;
+  --surface:#141414; --attendee:#6AA9F7; --facilitator:#C9A227;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Inter',sans-serif; background:var(--black); color:var(--text);
+  padding:32px 24px; line-height:1.5;
+}
+.sheet {
+  max-width:880px; margin:0 auto; background:#0f0f10; border:1px solid var(--border);
+  border-radius:12px; padding:36px 40px;
+}
+.top {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  border-bottom:3px solid var(--gold); padding-bottom:16px; margin-bottom:22px;
+}
+.top h1 { font-size:1.5rem; font-weight:900; }
+.top h1 span { color:var(--gold); }
+.top .sub { color:var(--muted); font-size:0.82rem; letter-spacing:1px; text-transform:uppercase; margin-top:2px; font-weight:700; }
+.top .meta { text-align:right; font-size:0.78rem; color:var(--muted); line-height:1.7; }
+.top .meta b { color:var(--gold); }
+
+h2 {
+  font-size:0.75rem; color:var(--gold); letter-spacing:2px; text-transform:uppercase;
+  margin-top:22px; margin-bottom:8px; font-weight:800;
+  border-bottom:1px solid var(--border); padding-bottom:4px;
+}
+
+/* Timing grid */
+.grid {
+  display:grid; grid-template-columns:72px 1fr 1fr; gap:0;
+  font-size:0.8rem; margin-bottom:4px;
+}
+.grid .row {
+  display:contents;
+}
+.grid .time {
+  font-family:'JetBrains Mono',monospace; color:var(--gold); font-weight:700;
+  padding:7px 8px 7px 0; border-bottom:1px solid var(--border);
+}
+.grid .what { padding:7px 12px; border-bottom:1px solid var(--border); }
+.grid .what b { color:var(--text); font-weight:700; }
+.grid .say {
+  padding:7px 10px; border-bottom:1px solid var(--border);
+  color:#c5c5c5; font-style:italic;
+}
+.grid .divider {
+  grid-column: 1 / -1;
+  background:rgba(207,181,59,0.08); color:var(--gold); font-weight:800;
+  padding:8px 10px; font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:0.82rem; }
+.box {
+  background:var(--surface); border-left:3px solid var(--gold); padding:12px 14px;
+  border-radius:0 6px 6px 0;
+}
+.box b { color:var(--gold); display:block; margin-bottom:4px; letter-spacing:0.5px; }
+.box p { color:#c5c5c5; margin:0; }
+
+.quote {
+  font-size:0.85rem; color:#d0d0d0; border-left:3px solid var(--gold);
+  padding:8px 14px; margin:6px 0; background:var(--surface); font-style:italic;
+}
+
+.pill {
+  display:inline-block; padding:2px 8px; border-radius:999px;
+  font-size:0.68rem; font-weight:800; letter-spacing:0.5px; text-transform:uppercase;
+  margin-right:6px;
+}
+.pill.say-this { background:rgba(106,194,143,0.15); color:#6ac28f; }
+.pill.watch { background:rgba(217,178,74,0.15); color:#d9b24a; }
+.pill.cut { background:rgba(224,108,108,0.15); color:#e06c6c; }
+
+.three-q {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:6px;
+}
+.three-q .q {
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  padding:10px 12px; font-size:0.8rem;
+}
+.three-q .q b { display:block; color:var(--gold); font-size:0.72rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+
+.footer-meta {
+  margin-top:22px; padding-top:12px; border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; font-size:0.72rem; color:var(--muted);
+}
+
+.print-btn {
+  position:fixed; top:16px; right:16px; z-index:50;
+  background:var(--gold); color:var(--black); font-weight:800;
+  padding:10px 18px; border:none; border-radius:6px; cursor:pointer;
+  font-family:inherit; font-size:0.85rem;
+}
+.print-btn:hover { opacity:0.9; }
+
+@media print {
+  body { background:white; color:black; padding:0; font-size:10pt; }
+  .sheet { background:white; border:none; padding:18px; max-width:100%; box-shadow:none; }
+  .top { border-bottom:2px solid black; }
+  .top h1 span, .top .meta b, h2, .box b, .pill, .three-q .q b, .footer-meta b { color:black !important; }
+  .box { background:#f8f5e8; border-left-color:#000; }
+  .grid .time { color:#555; }
+  .grid .what, .grid .say, .box p, .quote, .three-q .q { color:black; }
+  .grid .divider { background:#eee; color:black; }
+  .print-btn { display:none; }
+  .quote { background:#f9f6ea; border-left-color:#000; }
+  @page { margin:0.5in; }
+}
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">Print</button>
+
+<div class="sheet">
+  <div class="top">
+    <div>
+      <h1>Spark Workshop · <span>Facilitator Cheat Sheet</span></h1>
+      <div class="sub">One page · Keep on podium · Don't read it word-for-word</div>
+    </div>
+    <div class="meta">
+      <div><b>Total:</b> 3 hours · 15 min setup</div>
+      <div><b>Cohort:</b> 5–15 · laptops required</div>
+      <div><b>Capital One Café</b> · 2026-04-19</div>
+    </div>
+  </div>
+
+  <h2>Timing + What You Actually Say</h2>
+  <div class="grid">
+    <div class="divider">Setup · 15 min · before start</div>
+    <div class="time">-0:15</div><div class="what">Greet, check Claude Code + GitHub + template clone on each laptop</div><div class="say">"Grab coffee — we'll start at [time] sharp."</div>
+
+    <div class="divider">Hour 1 · Design Your Agents</div>
+    <div class="time">0:00</div><div class="what"><b>Warm-up — Who does your work?</b> Roles you can't afford.</div><div class="say">"Not titles. Functions. Who writes the grants? Who checks the cultural accuracy?"</div>
+    <div class="time">0:10</div><div class="what"><b>Skill — Agent design.</b> Scope · Intent · Voice · Calibration.</div><div class="say">"Agents are personas, not separate programs. Same AI, different hats."</div>
+    <div class="time">0:30</div><div class="what"><b>Build — Roster.</b> 3 agents, one file each. Name them alive.</div><div class="say">"'Marketing Agent' is dead on arrival. 'The Dispatch' has a voice."</div>
+    <div class="time">0:55</div><div class="what"><b>Check-in.</b> 2–3 share. Group gives naming + scope feedback.</div><div class="say">"What's the agent you couldn't stop thinking about?"</div>
+
+    <div class="divider">Hour 2 · Build Your State Layer</div>
+    <div class="time">1:00</div><div class="what"><b>Intro.</b> The state IS the institution.</div><div class="say">"If the AI forgets between sessions, it's a stranger — not a colleague."</div>
+    <div class="time">1:05</div><div class="what"><b>Skill — State file anatomy.</b> 4 files: org-state, portfolio, last-session, decision-journal.</div><div class="say">"80 lines of live state. Everything else is archive."</div>
+    <div class="time">1:20</div><div class="what"><b>Build — State files with REAL data.</b> 20 min on portfolio, 10 on rest.</div><div class="say">"The portfolio is the hardest. Most people have never written all their projects down."</div>
+    <div class="time">1:50</div><div class="what"><b>Build — Memory layer.</b> 3 seeds: preference, context, feedback.</div><div class="say">"Tell Spark once. It remembers across every future session."</div>
+
+    <div class="divider">Hour 3 · Connect and Operate</div>
+    <div class="time">2:00</div><div class="what"><b>Skill — Gmail MCP.</b> Live demo. Drafts only, never sends.</div><div class="say">"Relationships are human. Sent emails can't be unsent."</div>
+    <div class="time">2:15</div><div class="what"><b>Skill — Session protocol.</b> Start + close checklist.</div><div class="say">"The protocol is the discipline. Without it, the system drifts."</div>
+    <div class="time">2:25</div><div class="what"><b>Build — First live session.</b> "What's the status of my projects?" THE MOMENT.</div><div class="say">"Watch for the face. The moment they see their data reflect back — that's the testimonial."</div>
+    <div class="time">2:50</div><div class="what"><b>Reflection + close.</b> Three questions. Testimonial capture.</div><div class="say">"You built the skeleton. Muscle grows every session you use it."</div>
+  </div>
+
+  <h2>Three Questions for Close (ask out loud · 30 sec silence before answers)</h2>
+  <div class="three-q">
+    <div class="q"><b>Q1</b>What's the one thing you'll use on Monday?</div>
+    <div class="q"><b>Q2</b>What almost didn't work for you today?</div>
+    <div class="q"><b>Q3</b>Can we quote you? (yes / yes w/ attribution / no)</div>
+  </div>
+
+  <h2>Recovery Moves · If You're Running Long</h2>
+  <div class="two-col">
+    <div class="box">
+      <b><span class="pill cut">Cut</span>Running 15 min long in Hour 1</b>
+      <p>Drop check-in from 5 → 2 min. Roll the 3 min into Hour 2 portfolio build.</p>
+    </div>
+    <div class="box">
+      <b><span class="pill cut">Cut</span>Running 15 min long in Hour 2</b>
+      <p>Skip the decision-journal template; put it in the follow-up email.</p>
+    </div>
+    <div class="box">
+      <b><span class="pill cut">Cut</span>Running 15 min long in Hour 3</b>
+      <p>Drop Gmail MCP live demo → "I'll show this in the follow-up." Never cut the first-session moment.</p>
+    </div>
+    <div class="box">
+      <b><span class="pill watch">Watch</span>Someone is stuck</b>
+      <p>9/10 times: CLAUDE.md isn't pointing to state files, or state files are empty. Check those two.</p>
+    </div>
+  </div>
+
+  <h2>Say This · Four Lines to Memorize</h2>
+  <div class="quote">"Agents are personas, not separate programs. Same AI, different hats."</div>
+  <div class="quote">"The state IS the institution. Markdown in a git repo. No database. No vendor lock-in."</div>
+  <div class="quote">"Drafts only. Never sends. Tone is personal. Relationships are human."</div>
+  <div class="quote">"You built the skeleton. The muscle grows every session you use it."</div>
+
+  <div class="footer-meta">
+    <div><b>Template repo:</b> github.com/ShdwSpde/spark-workshop-template</div>
+    <div><b>Workshop guide:</b> spark.radicalimagination.xyz/workshop</div>
+  </div>
+</div>
+
+</body>
+</html>

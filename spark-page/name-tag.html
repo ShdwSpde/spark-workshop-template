@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark Cohort · Name Tag Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#CFB53B; --gold-dim:#8a7928; --black:#0D0D0D;
+  --text:#E8E8E8; --muted:#999; --border:#222; --surface:#141414;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); padding:32px 20px; }
+
+.app {
+  max-width:1040px; margin:0 auto;
+}
+header {
+  text-align:center; margin-bottom:32px;
+}
+header h1 { font-size:1.8rem; font-weight:900; }
+header h1 span { color:var(--gold); }
+header p { color:var(--muted); margin-top:6px; font-size:0.9rem; }
+
+.controls {
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:20px 24px; margin-bottom:20px;
+}
+.controls .row {
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+  margin-bottom:10px;
+}
+.controls label { font-size:0.8rem; color:var(--muted); font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+.controls input[type=text] {
+  padding:10px 14px; background:#0a0a0a; color:var(--text); border:1px solid var(--border);
+  border-radius:6px; font-family:inherit; font-size:0.95rem; min-width:260px;
+}
+.controls input[type=text]:focus { border-color:var(--gold); outline:none; }
+.controls .btn {
+  padding:10px 16px; background:var(--gold); color:var(--black); border:none;
+  border-radius:6px; font-weight:800; cursor:pointer; font-family:inherit;
+}
+.controls .btn.ghost { background:transparent; color:var(--gold); border:1px solid var(--gold-dim); }
+.controls .btn:hover { opacity:0.9; }
+.controls .btn.print { background:#6ac28f; color:#0a0a0a; }
+
+.names-list {
+  display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;
+}
+.name-chip {
+  background:var(--surface); color:var(--text); padding:6px 12px;
+  border-radius:999px; font-size:0.85rem; border:1px solid var(--border);
+  display:flex; align-items:center; gap:8px;
+}
+.name-chip .x { cursor:pointer; color:var(--muted); font-weight:700; }
+.name-chip .x:hover { color:#e06c6c; }
+
+.sheet {
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+  background:white; padding:18px; border-radius:6px; margin-top:20px;
+  width:8.5in; max-width:100%; margin-left:auto; margin-right:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+}
+
+.tag {
+  background:white; color:#0D0D0D; padding:22px 24px; border:2px solid #CFB53B;
+  border-radius:10px; aspect-ratio:4/3; display:flex; flex-direction:column;
+  justify-content:space-between; position:relative; overflow:hidden;
+}
+.tag::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:6px;
+  background:#CFB53B;
+}
+.tag-top {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  font-family:'Inter',sans-serif;
+}
+.tag .cohort {
+  font-size:0.6rem; font-weight:800; letter-spacing:2.5px;
+  text-transform:uppercase; color:#8a7928;
+}
+.tag .icon { font-size:1.1rem; color:#CFB53B; }
+.tag .name {
+  font-family:'Playfair Display',serif; font-weight:900; font-size:2rem;
+  color:#0D0D0D; line-height:1.05; margin:auto 0;
+  word-break:break-word;
+}
+.tag .org {
+  font-size:0.78rem; color:#555; letter-spacing:0.5px; margin-top:4px;
+  font-style:italic;
+}
+.tag-bottom {
+  font-family:'Inter',sans-serif; display:flex; justify-content:space-between;
+  align-items:flex-end; font-size:0.6rem;
+  letter-spacing:1.5px; text-transform:uppercase; color:#8a7928; font-weight:700;
+}
+.tag-bottom b { color:#0D0D0D; font-weight:800; }
+
+.tag.empty {
+  border-color:#ddd; opacity:0.4; background:repeating-linear-gradient(
+    45deg, white, white 8px, #f0f0f0 8px, #f0f0f0 16px);
+}
+.tag.empty::before { background:#ddd; }
+
+.tip {
+  color:var(--muted); font-size:0.8rem; text-align:center; margin-top:16px;
+  line-height:1.6;
+}
+.tip code { background:#1a1a1a; padding:2px 6px; border-radius:3px; font-size:0.85em; }
+
+@media print {
+  body { background:white; padding:0; }
+  .app > header, .controls, .tip { display:none; }
+  .sheet {
+    box-shadow:none; padding:0.35in; gap:0.15in;
+    grid-template-columns:repeat(2, 1fr);
+    width:auto; max-width:none; margin:0;
+  }
+  .tag {
+    page-break-inside:avoid;
+    aspect-ratio:4/3;
+  }
+  .tag.empty { display:none; }
+  @page { size:letter; margin:0; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header>
+  <h1>Spark Cohort · <span>Name Tag Builder</span></h1>
+  <p>Type names, one at a time. Prints 4 per page on letter. Cut and fold.</p>
+</header>
+
+<div class="controls">
+  <div class="row">
+    <label for="cohort">Cohort label</label>
+    <input type="text" id="cohort" value="Founding Cohort · April 19, 2026">
+    <label for="venue" style="margin-left:20px;">Venue</label>
+    <input type="text" id="venue" value="Capital One Café">
+  </div>
+  <div class="row">
+    <label for="name">Add attendee</label>
+    <input type="text" id="name" placeholder="Name" onkeydown="if(event.key==='Enter'){event.preventDefault();addFromForm();}">
+    <input type="text" id="org" placeholder="Org or role (optional)" onkeydown="if(event.key==='Enter'){event.preventDefault();addFromForm();}">
+    <button class="btn" onclick="addFromForm()">Add</button>
+    <button class="btn ghost" onclick="clearAll()">Clear all</button>
+    <button class="btn print" onclick="window.print()">Print</button>
+  </div>
+  <div class="names-list" id="names-list"></div>
+</div>
+
+<div class="sheet" id="sheet"></div>
+
+<div class="tip">
+  Letter paper · 4 tags per page · <code>⌘+P</code> to print, set margins to none.<br>
+  Fold the top bar over a lanyard or pin through the white space.
+</div>
+
+</div>
+
+<script>
+const state = {
+  names: [],
+  cohort: 'Founding Cohort · April 19, 2026',
+  venue: 'Capital One Café',
+};
+
+function load() {
+  try {
+    const s = localStorage.getItem('spark-nametags');
+    if (s) Object.assign(state, JSON.parse(s));
+  } catch(e){}
+  document.getElementById('cohort').value = state.cohort;
+  document.getElementById('venue').value = state.venue;
+}
+function save() {
+  localStorage.setItem('spark-nametags', JSON.stringify(state));
+}
+function addFromForm() {
+  const name = document.getElementById('name').value.trim();
+  const org = document.getElementById('org').value.trim();
+  if (!name) return;
+  state.names.push({ name, org });
+  document.getElementById('name').value = '';
+  document.getElementById('org').value = '';
+  document.getElementById('name').focus();
+  render();
+  save();
+}
+function removeAt(i) {
+  state.names.splice(i, 1);
+  render();
+  save();
+}
+function clearAll() {
+  if (!confirm('Clear all names?')) return;
+  state.names = [];
+  render();
+  save();
+}
+function esc(s) {
+  return String(s || '').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+}
+function render() {
+  state.cohort = document.getElementById('cohort').value;
+  state.venue  = document.getElementById('venue').value;
+  const list = document.getElementById('names-list');
+  list.innerHTML = state.names.map((n, i) =>
+    `<span class="name-chip">${esc(n.name)}${n.org ? ' · ' + esc(n.org) : ''} <span class="x" onclick="removeAt(${i})">×</span></span>`
+  ).join('') || '<span style="color:#555;font-size:0.85rem;">No names yet. Add above.</span>';
+
+  const sheet = document.getElementById('sheet');
+  // Pad to multiple of 4 so the print grid always fills a page nicely
+  const padded = state.names.length ? [...state.names] : [];
+  while (padded.length % 4 !== 0) padded.push(null);
+  sheet.innerHTML = padded.map(n => {
+    if (!n) return '<div class="tag empty"></div>';
+    return `<div class="tag">
+      <div class="tag-top">
+        <div class="cohort">Spark ⚡ ${esc(state.cohort)}</div>
+        <div class="icon">✒️</div>
+      </div>
+      <div>
+        <div class="name">${esc(n.name)}</div>
+        ${n.org ? `<div class="org">${esc(n.org)}</div>` : ''}
+      </div>
+      <div class="tag-bottom">
+        <span>${esc(state.venue)}</span>
+        <b>Build · Don't watch</b>
+      </div>
+    </div>`;
+  }).join('');
+}
+document.getElementById('cohort').addEventListener('input', () => { render(); save(); });
+document.getElementById('venue').addEventListener('input', () => { render(); save(); });
+
+load(); render();
+</script>
+</body>
+</html>

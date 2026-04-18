@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark Cohort · Testimonial</title>
+<meta name="description" content="Leave a quote from the Spark workshop.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#CFB53B; --gold-dim:#8a7928; --gold-glow:rgba(207,181,59,0.1);
+  --black:#0D0D0D; --surface:#141414; --surface-2:#1a1a1a;
+  --text:#E8E8E8; --muted:#999; --dim:#555; --border:#222;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Inter',sans-serif; background:var(--black); color:var(--text);
+  min-height:100vh; padding:40px 20px; line-height:1.6;
+  background-image:radial-gradient(ellipse 80% 60% at 50% -10%, var(--gold-glow), transparent 60%);
+}
+.wrap { max-width:640px; margin:0 auto; }
+.brand {
+  text-align:center; margin-bottom:24px;
+  font-size:0.75rem; color:var(--gold); letter-spacing:4px;
+  text-transform:uppercase; font-weight:800;
+}
+h1 {
+  font-family:'Playfair Display',serif; font-weight:900; font-size:2.4rem;
+  text-align:center; line-height:1.1; margin-bottom:10px;
+}
+h1 span { color:var(--gold); font-style:italic; }
+.intro {
+  text-align:center; color:var(--muted); margin-bottom:36px;
+  max-width:480px; margin-left:auto; margin-right:auto;
+}
+
+form { display:flex; flex-direction:column; gap:22px; }
+.field label {
+  display:block; font-size:0.72rem; color:var(--gold); font-weight:800;
+  letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;
+}
+.field .prompt {
+  font-size:1.05rem; color:var(--text); margin-bottom:10px; font-weight:500;
+}
+.field .hint {
+  font-size:0.8rem; color:var(--dim); margin-top:6px;
+}
+.field input[type=text], .field input[type=email], .field textarea {
+  width:100%; padding:14px 16px; background:var(--surface); color:var(--text);
+  border:1px solid var(--border); border-radius:8px; font-family:inherit;
+  font-size:0.95rem; transition:border-color 0.15s;
+}
+.field textarea { min-height:100px; resize:vertical; line-height:1.5; }
+.field input:focus, .field textarea:focus { border-color:var(--gold); outline:none; }
+.field input::placeholder, .field textarea::placeholder { color:#555; }
+
+.radio-group { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.radio-row {
+  display:flex; align-items:flex-start; gap:12px; padding:14px 16px;
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  cursor:pointer; transition:border-color 0.15s;
+}
+.radio-row:hover { border-color:var(--gold-dim); }
+.radio-row input { margin-top:3px; accent-color:var(--gold); flex-shrink:0; }
+.radio-row.checked { border-color:var(--gold); background:rgba(207,181,59,0.04); }
+.radio-row b { color:var(--text); display:block; margin-bottom:2px; font-weight:700; }
+.radio-row span { color:var(--muted); font-size:0.85rem; }
+
+.actions { display:flex; gap:12px; justify-content:center; margin-top:10px; flex-wrap:wrap; }
+.btn {
+  padding:14px 28px; font-family:inherit; font-weight:800; border:none;
+  border-radius:8px; cursor:pointer; font-size:0.95rem; transition:opacity 0.2s;
+}
+.btn-primary { background:var(--gold); color:var(--black); }
+.btn-secondary { background:transparent; color:var(--gold); border:2px solid var(--gold); }
+.btn:hover { opacity:0.9; }
+
+.thanks {
+  display:none; text-align:center; padding:40px 20px;
+}
+.thanks.visible { display:block; }
+.thanks .check {
+  width:80px; height:80px; margin:0 auto 24px;
+  border-radius:50%; background:rgba(106,194,143,0.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:2.5rem; color:#6ac28f;
+}
+.thanks h2 {
+  font-family:'Playfair Display',serif; font-weight:900; font-size:2rem;
+  margin-bottom:12px;
+}
+.thanks p { color:var(--muted); max-width:460px; margin:0 auto 20px; }
+
+.preview {
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:22px 24px; margin-top:22px; font-size:0.9rem; text-align:left;
+}
+.preview b { color:var(--gold); display:block; font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px; }
+.preview .answer { color:#c5c5c5; margin-bottom:16px; font-style:italic; line-height:1.6; }
+
+.footer { text-align:center; margin-top:40px; font-size:0.78rem; color:var(--dim); }
+.footer a { color:var(--gold); text-decoration:none; }
+.footer a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="form-view">
+  <div class="brand">✒️⚡ Spark Cohort · Testimonial</div>
+  <h1>What's <span>one thing</span> you'll use?</h1>
+  <p class="intro">Three questions, 2 minutes. Your words go on the wall and help the next cohort. Thank you for being here.</p>
+
+  <form onsubmit="event.preventDefault(); submitForm();">
+
+    <div class="field">
+      <label>Q1 · Monday</label>
+      <div class="prompt">What's the one thing you'll use on Monday?</div>
+      <textarea id="q1" required placeholder="The thing that actually changes your workflow."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Q2 · Friction</label>
+      <div class="prompt">What almost didn't work for you today?</div>
+      <textarea id="q2" placeholder="Blunt is good. This is how we improve."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Q3 · Attribution</label>
+      <div class="prompt">Can we quote you?</div>
+      <div class="radio-group">
+        <label class="radio-row">
+          <input type="radio" name="attr" value="yes-attributed" required>
+          <div><b>Yes — with my name + org</b><span>Full attribution. Testimonial wall + case studies.</span></div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="attr" value="yes-anon">
+          <div><b>Yes — anonymous</b><span>Use the words, not the name.</span></div>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="attr" value="no">
+          <div><b>No — just for Mike</b><span>Private feedback only.</span></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Your info</label>
+      <div class="prompt">For the wall (if attributed) and the follow-up.</div>
+      <input type="text" id="name" placeholder="Name" required style="margin-bottom:10px;">
+      <input type="text" id="org" placeholder="Organization or role" style="margin-bottom:10px;">
+      <input type="email" id="email" placeholder="Email (for follow-up)" required>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn btn-primary">Send testimonial</button>
+    </div>
+    <p class="hint" style="text-align:center;">This opens your email app with the response pre-filled. Review and send to confirm.</p>
+  </form>
+</div>
+
+<div id="thanks-view" class="thanks">
+  <div class="check">✓</div>
+  <h2>Thank you.</h2>
+  <p>Your email draft is open — hit send when you're ready. We'll be in touch within 24 hours with your follow-up packet.</p>
+  <div class="preview" id="preview"></div>
+  <div class="actions" style="margin-top:24px;">
+    <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to clipboard</button>
+    <button class="btn btn-primary" onclick="resetForm()">New response</button>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="workshop.html">← Back to workshop guide</a> ·
+  <a href="index.html">Spark home</a>
+</div>
+
+</div>
+
+<script>
+const TO = 'mike@radicalimagination.xyz';
+
+document.querySelectorAll('input[type=radio]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.querySelectorAll('.radio-row').forEach(row => row.classList.remove('checked'));
+    if (r.checked) r.closest('.radio-row').classList.add('checked');
+  });
+});
+
+function getValues() {
+  return {
+    q1: document.getElementById('q1').value.trim(),
+    q2: document.getElementById('q2').value.trim(),
+    attr: (document.querySelector('input[name=attr]:checked') || {}).value || '',
+    name: document.getElementById('name').value.trim(),
+    org:  document.getElementById('org').value.trim(),
+    email:document.getElementById('email').value.trim(),
+  };
+}
+
+function formatBody(v) {
+  return [
+    'Spark Cohort Testimonial',
+    '=========================',
+    '',
+    'Q1 — What I\'ll use on Monday:',
+    v.q1,
+    '',
+    'Q2 — What almost didn\'t work:',
+    v.q2 || '(no answer)',
+    '',
+    'Q3 — Attribution:',
+    ({ 'yes-attributed':'Yes — with name + org',
+       'yes-anon':'Yes — anonymous only',
+       'no':'No — private feedback' })[v.attr] || v.attr,
+    '',
+    'Name: ' + v.name,
+    'Org:  ' + (v.org || '(none)'),
+    'Email:' + v.email,
+    '',
+    '(Submitted from spark.radicalimagination.xyz/testimonial)',
+  ].join('\n');
+}
+
+function submitForm() {
+  const v = getValues();
+  if (!v.q1) { alert('Q1 is required.'); return; }
+  if (!v.attr) { alert('Pick an attribution option.'); return; }
+  if (!v.email) { alert('Email required so we can follow up.'); return; }
+
+  const subject = 'Spark testimonial · ' + (v.name || 'Anonymous');
+  const body = formatBody(v);
+  const mailto = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+  window.location.href = mailto;
+
+  // Cache the response locally so Mike can retrieve it from the device if mailto fails
+  try {
+    const existing = JSON.parse(localStorage.getItem('spark-testimonials') || '[]');
+    existing.push({ ...v, ts: new Date().toISOString() });
+    localStorage.setItem('spark-testimonials', JSON.stringify(existing));
+  } catch(e) {}
+
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('thanks-view').classList.add('visible');
+
+  // Render preview
+  document.getElementById('preview').innerHTML =
+    '<b>Monday</b><div class="answer">' + escHtml(v.q1) + '</div>' +
+    (v.q2 ? '<b>Friction</b><div class="answer">' + escHtml(v.q2) + '</div>' : '') +
+    '<b>Attribution</b><div class="answer">' + escHtml(v.attr) + '</div>';
+}
+
+function escHtml(s) {
+  return String(s || '').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+}
+
+function copyToClipboard() {
+  const body = formatBody(getValues());
+  navigator.clipboard.writeText(body).then(() => {
+    const btn = event.target;
+    const label = btn.textContent;
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = label, 1600);
+  });
+}
+
+function resetForm() {
+  document.getElementById('form-view').style.display = 'block';
+  document.getElementById('thanks-view').classList.remove('visible');
+  document.querySelector('form').reset();
+  document.querySelectorAll('.radio-row').forEach(row => row.classList.remove('checked'));
+}
+</script>
+
+</body>
+</html>
