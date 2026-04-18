@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark · 30-Day Concierge</title>
+<meta name="description" content="30 days of on-demand Spark support after the workshop. <24hr response. One scheduled review session. Included with every seat.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+:root { --gold:#CFB53B; --gold-dim:#8a7928; --gold-glow:rgba(207,181,59,0.1); --black:#0D0D0D; --surface:#141414; --surface-2:#1a1a1a; --text:#E8E8E8; --muted:#999; --dim:#555; --border:#222; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); line-height:1.6; }
+a { color:var(--gold); text-decoration:none; } a:hover { text-decoration:underline; }
+
+.gold-line { height:4px; background:var(--gold); }
+
+.hero {
+  max-width:860px; margin:0 auto; padding:72px 28px 48px; text-align:center;
+  background:radial-gradient(ellipse 70% 55% at 50% 0%, var(--gold-glow), transparent 65%);
+}
+.eyebrow { font-size:0.72rem; color:var(--gold); letter-spacing:4px; text-transform:uppercase; font-weight:800; margin-bottom:14px; }
+.hero h1 {
+  font-family:'Playfair Display',serif; font-weight:900; font-style:italic;
+  font-size:clamp(2.2rem, 5vw, 3.4rem); line-height:1.05; margin-bottom:14px;
+}
+.hero h1 span { color:var(--gold); font-style:normal; }
+.hero .lede { color:var(--muted); max-width:640px; margin:0 auto 24px; font-size:1.05rem; }
+
+.container { max-width:860px; margin:0 auto; padding:0 28px 60px; }
+
+.promise-grid {
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px;
+  margin:20px 0 40px;
+}
+.promise {
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:22px 24px; border-left:3px solid var(--gold);
+}
+.promise h3 { font-size:0.72rem; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; font-weight:800; margin-bottom:8px; }
+.promise .big { font-size:1.8rem; font-weight:900; color:var(--text); font-family:'Playfair Display',serif; line-height:1; margin-bottom:6px; }
+.promise p { color:#c5c5c5; font-size:0.86rem; margin:0; }
+
+.section { margin:40px 0; }
+.section h2 {
+  font-size:0.8rem; color:var(--gold); letter-spacing:2px;
+  text-transform:uppercase; font-weight:800; margin-bottom:14px;
+}
+.section h3 { font-size:1.2rem; font-weight:800; margin-bottom:10px; }
+.section p { color:#c5c5c5; margin-bottom:12px; font-size:0.95rem; }
+
+.timeline {
+  position:relative; padding-left:28px; margin:20px 0;
+}
+.timeline::before {
+  content:''; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:var(--gold-dim);
+}
+.timeline .entry { position:relative; margin-bottom:22px; padding-left:20px; }
+.timeline .entry::before {
+  content:''; position:absolute; left:-26px; top:4px; width:14px; height:14px; border-radius:50%;
+  background:var(--gold); border:3px solid var(--black);
+}
+.timeline .entry .day { font-size:0.72rem; color:var(--gold); letter-spacing:1.5px; text-transform:uppercase; font-weight:800; margin-bottom:4px; }
+.timeline .entry h4 { font-size:1rem; font-weight:700; margin-bottom:4px; }
+.timeline .entry p { font-size:0.88rem; color:#c5c5c5; margin:0; }
+
+.cta-box {
+  background:var(--surface); border:1px solid var(--gold-dim); border-radius:12px;
+  padding:32px 36px; text-align:center; margin:30px 0;
+}
+.cta-box h3 { font-family:'Playfair Display',serif; font-weight:900; font-size:1.4rem; margin-bottom:10px; font-style:italic; }
+.cta-box h3 span { color:var(--gold); font-style:normal; }
+.cta-box .channel {
+  display:inline-block; background:#0a0a0a; padding:10px 18px; border-radius:6px;
+  font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:0.9rem;
+  border:1px solid var(--border); margin-top:8px;
+}
+
+.sla-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0;
+}
+@media (max-width:600px) { .sla-grid { grid-template-columns:1fr; } }
+.sla {
+  background:var(--surface-2); padding:16px 20px; border-radius:8px;
+  border-left:3px solid var(--gold);
+}
+.sla b { display:block; color:var(--gold); font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px; }
+.sla p { margin:0; font-size:0.88rem; color:#d0d0d0; }
+
+.not-included {
+  background:var(--surface); border-radius:10px; padding:20px 24px;
+  border-left:3px solid #e06c6c; margin-top:20px;
+}
+.not-included b { color:#e06c6c; display:block; margin-bottom:6px; font-size:0.78rem; letter-spacing:1.5px; text-transform:uppercase; }
+.not-included ul { margin:6px 0 0 20px; color:#c5c5c5; font-size:0.88rem; }
+.not-included li { margin-bottom:4px; }
+
+.footer { text-align:center; padding:32px 20px; border-top:1px solid var(--border); margin-top:40px; font-size:0.82rem; color:var(--dim); }
+.footer a { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="gold-line"></div>
+
+<div class="hero">
+  <div class="eyebrow">Included with every workshop seat</div>
+  <h1>30 days of <span>on-demand Spark support.</span></h1>
+  <p class="lede">Not "follow-up access." Real responsiveness. A guaranteed reply in under 24 hours for 30 days after the workshop, a scheduled mid-month review session, and a direct line to Mike when something breaks.</p>
+</div>
+
+<div class="container">
+
+<div class="promise-grid">
+  <div class="promise">
+    <h3>Response time</h3>
+    <div class="big">&lt; 24 hr</div>
+    <p>Guaranteed. Weekdays, business hours. Weekend responses welcome but not promised.</p>
+  </div>
+  <div class="promise">
+    <h3>Review session</h3>
+    <div class="big">30 min</div>
+    <p>Auto-scheduled for Day 14. Screenshare your running system. Line-by-line review.</p>
+  </div>
+  <div class="promise">
+    <h3>Window</h3>
+    <div class="big">30 days</div>
+    <p>Starts the day after the workshop. Use any part of it — questions, reviews, jams.</p>
+  </div>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+<div class="section">
+  <h2>What's covered</h2>
+  <div class="sla-grid">
+    <div class="sla">
+      <b>Agent spec review</b>
+      <p>Paste your custom agent, get a review against the failure-mode checklist. Fast turnaround.</p>
+    </div>
+    <div class="sla">
+      <b>State file sanity check</b>
+      <p>Share your portfolio.md, get feedback on what's missing or redundant.</p>
+    </div>
+    <div class="sla">
+      <b>Prompt-level debugging</b>
+      <p>Your agent gave a weird answer — paste the session, we'll diagnose.</p>
+    </div>
+    <div class="sla">
+      <b>MCP integration help</b>
+      <p>Gmail, Calendar, Drive hookup issues — walked through step by step.</p>
+    </div>
+    <div class="sla">
+      <b>Architecture calls</b>
+      <p>"Should this be one agent or two?" — we'll think it through with you.</p>
+    </div>
+    <div class="sla">
+      <b>Cultural content flagging</b>
+      <p>If you're about to ship something that touches heritage, we'll run the Validator together.</p>
+    </div>
+  </div>
+
+  <div class="not-included">
+    <b>What's NOT covered</b>
+    <ul>
+      <li>Full custom builds — that's the $10–15K org-build tier, not concierge.</li>
+      <li>Writing your content, grants, or strategies for you — we review, we don't ghostwrite.</li>
+      <li>Urgent same-hour turnaround — we're fast, not 911.</li>
+      <li>Vendor relationships — we can't manage your Gmail, your OpenAI account, your GitHub.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section">
+  <h2>The 30-day arc</h2>
+  <div class="timeline">
+    <div class="entry">
+      <div class="day">Day 0 · Workshop</div>
+      <h4>You leave with the system.</h4>
+      <p>You have a working Spark. Concierge starts tomorrow morning.</p>
+    </div>
+    <div class="entry">
+      <div class="day">Day 1</div>
+      <h4>The welcome email lands.</h4>
+      <p>Includes your concierge channel, a checklist for running your first real session, and a booking link for your Day 14 review session.</p>
+    </div>
+    <div class="entry">
+      <div class="day">Days 1–13</div>
+      <h4>Ask anything. &lt; 24 hour response.</h4>
+      <p>One thread per question — easier to track. Screenshots are welcome. Paste prompts and responses freely.</p>
+    </div>
+    <div class="entry">
+      <div class="day">Day 14 · Review session</div>
+      <h4>30 minutes of live screenshare.</h4>
+      <p>You share your screen. We walk through your state files, your agents, your recent sessions. We find what's underused, what's misconfigured, what's ready to expand.</p>
+    </div>
+    <div class="entry">
+      <div class="day">Days 15–29</div>
+      <h4>Ask anything, cont.</h4>
+      <p>Usually the second half gets heavier questions — custom agents, cross-project patterns, integration ambitions.</p>
+    </div>
+    <div class="entry">
+      <div class="day">Day 30 · Handoff</div>
+      <h4>Summary email.</h4>
+      <p>Recap of every question asked, patterns we noticed, and what you'd get from the alumni network (included as long as you stay active).</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<div class="section">
+  <h2>How to use it</h2>
+  <h3>Email is fastest</h3>
+  <p>One question per email, descriptive subject line. If it's urgent, say so in the subject — we triage on that.</p>
+
+  <div class="cta-box">
+    <h3>Your concierge channel · <span>ready at Day 0</span></h3>
+    <p style="color:var(--muted); margin-bottom:10px;">You'll get the private address in your welcome email. Placeholder:</p>
+    <div class="channel">concierge@spark.radicalimagination.xyz</div>
+  </div>
+
+  <h3>Good questions for this channel</h3>
+  <ul style="margin-left:24px; color:#c5c5c5; line-height:1.9;">
+    <li>"My Grant Writer is pulling numbers from the wrong file — how do I constrain it?"</li>
+    <li>"I want to add a Volunteer Coordinator but my roster lives in Airtable — how?"</li>
+    <li>"My session protocol feels like busywork by Week 2 — what do I cut?"</li>
+    <li>"We're about to ship a grant that mentions a community we haven't consulted — what's the Validator call here?"</li>
+  </ul>
+
+  <h3>Questions that belong elsewhere</h3>
+  <ul style="margin-left:24px; color:#c5c5c5; line-height:1.9;">
+    <li>"Can you ghostwrite my newsletter?" — no, but the Newsletter Drafter agent does.</li>
+    <li>"Can you call my funder for me?" — no, relationships stay human.</li>
+    <li>"Can we extend concierge to 90 days?" — yes, for $500 extension or free via alumni tier (see <a href="certificate.html">Certificate &amp; Alumni</a>).</li>
+  </ul>
+</div>
+
+</div>
+
+<div class="footer">
+  <a href="index.html">Spark home</a> ·
+  <a href="workshop.html">Workshop</a> ·
+  <a href="agents.html">Agent library</a> ·
+  <a href="buddy.html">Buddy protocol</a> ·
+  <a href="certificate.html">Alumni</a>
+</div>
+
+</body>
+</html>

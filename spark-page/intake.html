@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spark · Pre-Workshop Intake</title>
+<meta name="description" content="Pre-workshop intake form. Takes 10 minutes. We use your answers to pre-seed your state files so you walk in with a working system.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+:root { --gold:#CFB53B; --gold-dim:#8a7928; --black:#0D0D0D; --surface:#141414; --surface-2:#1a1a1a; --text:#E8E8E8; --muted:#999; --dim:#555; --border:#222; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:var(--black); color:var(--text); line-height:1.6; padding:40px 20px; }
+.wrap { max-width:720px; margin:0 auto; }
+.brand { text-align:center; font-size:0.75rem; color:var(--gold); letter-spacing:4px; text-transform:uppercase; font-weight:800; margin-bottom:20px; }
+h1 { font-family:'Playfair Display',serif; font-weight:900; font-size:2.4rem; text-align:center; line-height:1.1; margin-bottom:12px; }
+h1 span { color:var(--gold); font-style:italic; }
+.intro { text-align:center; color:var(--muted); margin-bottom:40px; max-width:540px; margin-left:auto; margin-right:auto; }
+
+.progress {
+  display:flex; gap:4px; margin-bottom:32px;
+}
+.progress .step { flex:1; height:4px; background:var(--surface); border-radius:2px; transition:background 0.3s; }
+.progress .step.done { background:var(--gold); }
+
+.step-panel {
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:32px 36px; margin-bottom:22px; display:none;
+}
+.step-panel.active { display:block; }
+
+.step-label {
+  font-size:0.72rem; color:var(--gold); letter-spacing:2px; text-transform:uppercase;
+  font-weight:800; margin-bottom:8px;
+}
+.step-panel h2 { font-size:1.4rem; font-weight:800; margin-bottom:8px; }
+.step-panel .prompt { color:var(--muted); margin-bottom:20px; font-size:0.95rem; }
+
+.field { margin-bottom:20px; }
+.field label {
+  display:block; font-size:0.78rem; color:var(--text); font-weight:700;
+  margin-bottom:6px;
+}
+.field .hint { font-size:0.8rem; color:var(--dim); margin-top:6px; }
+.field input[type=text], .field input[type=email], .field textarea {
+  width:100%; padding:12px 16px; background:#0a0a0a; color:var(--text);
+  border:1px solid var(--border); border-radius:8px; font-family:inherit;
+  font-size:0.95rem;
+}
+.field textarea { min-height:90px; resize:vertical; line-height:1.5; }
+.field input:focus, .field textarea:focus { border-color:var(--gold); outline:none; }
+.field input::placeholder, .field textarea::placeholder { color:#444; }
+
+.repeater-row {
+  display:grid; grid-template-columns:1fr 1fr auto; gap:8px; margin-bottom:8px;
+}
+.repeater-row input { width:100%; }
+.repeater-row .x {
+  background:transparent; color:var(--muted); border:1px solid var(--border);
+  padding:0 12px; border-radius:6px; cursor:pointer; font-family:inherit;
+}
+.repeater-row .x:hover { color:#e06c6c; border-color:#e06c6c; }
+.repeater-add {
+  background:transparent; color:var(--gold); border:1px dashed var(--gold-dim);
+  padding:8px 14px; border-radius:6px; cursor:pointer; font-family:inherit;
+  font-size:0.82rem; font-weight:700;
+}
+.repeater-add:hover { background:rgba(207,181,59,0.05); }
+
+.actions { display:flex; justify-content:space-between; gap:12px; margin-top:10px; flex-wrap:wrap; }
+.btn {
+  padding:13px 26px; font-family:inherit; font-weight:800; border:none;
+  border-radius:8px; cursor:pointer; font-size:0.9rem;
+}
+.btn-primary { background:var(--gold); color:var(--black); }
+.btn-secondary { background:transparent; color:var(--gold); border:2px solid var(--gold); }
+.btn-ghost { background:transparent; color:var(--muted); border:1px solid var(--border); }
+.btn:hover { opacity:0.9; }
+
+.result-view { display:none; }
+.result-view.active { display:block; }
+.result-view h2 { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; margin-bottom:8px; }
+.result-view .sub { color:var(--muted); margin-bottom:24px; }
+
+.result-preview {
+  background:var(--surface); border:1px solid var(--border); border-radius:12px;
+  padding:22px 26px; margin-bottom:18px;
+}
+.result-preview h3 {
+  color:var(--gold); font-size:0.75rem; letter-spacing:1.5px;
+  text-transform:uppercase; margin-bottom:10px; font-weight:800;
+}
+.result-preview pre {
+  font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:#d5d5d5;
+  background:#0a0a0a; padding:16px; border-radius:6px; overflow-x:auto;
+  white-space:pre-wrap; word-break:break-word; line-height:1.55;
+}
+.copy-btn {
+  background:transparent; color:var(--gold); border:1px solid var(--gold-dim);
+  padding:6px 12px; border-radius:4px; font-size:0.75rem; cursor:pointer;
+  font-family:inherit; float:right;
+}
+
+.footer { text-align:center; margin-top:40px; font-size:0.78rem; color:var(--dim); }
+.footer a { color:var(--gold); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- FORM -->
+<div id="form-view">
+  <div class="brand">✒️⚡ Spark · Pre-Workshop Intake</div>
+  <h1>Walk in with a <span>working system.</span></h1>
+  <p class="intro">Ten minutes now saves you the first hour of the workshop. Your answers pre-seed your state files, so you start customizing — not staring at empty templates.</p>
+
+  <div class="progress" id="progress">
+    <div class="step done"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+    <div class="step"></div>
+  </div>
+
+  <!-- STEP 1: YOU + ORG -->
+  <div class="step-panel active" data-step="1">
+    <div class="step-label">Step 1 of 5 · You &amp; your org</div>
+    <h2>The basics.</h2>
+    <p class="prompt">One sentence each. We'll expand with you in the workshop.</p>
+
+    <div class="field">
+      <label for="your-name">Your name</label>
+      <input type="text" id="your-name" placeholder="Full name">
+    </div>
+    <div class="field">
+      <label for="your-role">Your role</label>
+      <input type="text" id="your-role" placeholder="Founder, ED, program manager, studio lead…">
+    </div>
+    <div class="field">
+      <label for="org-name">Organization name</label>
+      <input type="text" id="org-name" placeholder="The name you want in state files">
+    </div>
+    <div class="field">
+      <label for="org-mission">Mission — one sentence</label>
+      <input type="text" id="org-mission" placeholder="What the org exists to do.">
+      <div class="hint">Not the website copy. The one you'd say to a stranger at a party.</div>
+    </div>
+
+    <div class="actions" style="justify-content:flex-end;">
+      <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: PAIN POINTS -->
+  <div class="step-panel" data-step="2">
+    <div class="step-label">Step 2 of 5 · Operational pain</div>
+    <h2>What keeps you up?</h2>
+    <p class="prompt">The three tasks you keep dropping, delaying, or doing at midnight. These become the first three agents we build for you.</p>
+
+    <div class="field">
+      <label for="pain-1">Pain point 1</label>
+      <input type="text" id="pain-1" placeholder="e.g., Grant deadlines I discover too late">
+    </div>
+    <div class="field">
+      <label for="pain-2">Pain point 2</label>
+      <input type="text" id="pain-2" placeholder="e.g., Newsletter always a week late">
+    </div>
+    <div class="field">
+      <label for="pain-3">Pain point 3</label>
+      <input type="text" id="pain-3" placeholder="e.g., Board prep always eats a full weekend">
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: PROJECTS -->
+  <div class="step-panel" data-step="3">
+    <div class="step-label">Step 3 of 5 · Active projects</div>
+    <h2>What's in motion?</h2>
+    <p class="prompt">Your active projects. We use this to seed your <code>portfolio.md</code>. Add as many as you have — a first pass, not the final draft.</p>
+
+    <div id="projects-list"></div>
+    <button class="repeater-add" onclick="addProject()">+ Add project</button>
+
+    <div class="actions" style="margin-top:20px;">
+      <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: PEOPLE -->
+  <div class="step-panel" data-step="4">
+    <div class="step-label">Step 4 of 5 · Key relationships</div>
+    <h2>Who's in your orbit?</h2>
+    <p class="prompt">5 real people you communicate with regularly — board members, partners, key funders, core volunteers. We seed them into your collective roster + partners registry.</p>
+
+    <div id="people-list"></div>
+    <button class="repeater-add" onclick="addPerson()">+ Add person</button>
+
+    <div class="actions" style="margin-top:20px;">
+      <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: PREFS -->
+  <div class="step-panel" data-step="5">
+    <div class="step-label">Step 5 of 5 · Communication preferences</div>
+    <h2>How do you want to be talked to?</h2>
+    <p class="prompt">Three memories we seed into your MEMORY.md so your agents don't need to learn them twice.</p>
+
+    <div class="field">
+      <label for="comm-style">Communication style</label>
+      <textarea id="comm-style" placeholder="e.g., Direct, no corporate speak. Short sentences. No &quot;just checking in.&quot;"></textarea>
+      <div class="hint">How you want your agents to communicate with you.</div>
+    </div>
+    <div class="field">
+      <label for="guardrail">One hard guardrail</label>
+      <textarea id="guardrail" placeholder="e.g., Never commit to a partnership on my behalf. Never impersonate a staff voice."></textarea>
+      <div class="hint">A thing no agent should ever do without explicit approval.</div>
+    </div>
+    <div class="field">
+      <label for="your-email">Your email</label>
+      <input type="email" id="your-email" placeholder="Where we send your starter files">
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="generate()">Generate my starter files →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- RESULT -->
+<div id="result-view" class="result-view">
+  <div class="brand">✒️⚡ Spark · Your Starter Files</div>
+  <h2>Ready. We'll load these at workshop start.</h2>
+  <p class="sub">These are drafts — you'll customize them live on Hour 1. Copy each block into the named file in your repo, or email them to yourself using the button at the bottom.</p>
+
+  <div class="result-preview">
+    <h3>state/org-state.md <button class="copy-btn" onclick="copyBlock('r-orgstate')">Copy</button></h3>
+    <pre id="r-orgstate"></pre>
+  </div>
+  <div class="result-preview">
+    <h3>state/portfolio.md <button class="copy-btn" onclick="copyBlock('r-portfolio')">Copy</button></h3>
+    <pre id="r-portfolio"></pre>
+  </div>
+  <div class="result-preview">
+    <h3>state/collective-roster.md <button class="copy-btn" onclick="copyBlock('r-roster')">Copy</button></h3>
+    <pre id="r-roster"></pre>
+  </div>
+  <div class="result-preview">
+    <h3>memory/MEMORY.md <button class="copy-btn" onclick="copyBlock('r-memory')">Copy</button></h3>
+    <pre id="r-memory"></pre>
+  </div>
+  <div class="result-preview">
+    <h3>Suggested first 3 agents <button class="copy-btn" onclick="copyBlock('r-agents')">Copy</button></h3>
+    <pre id="r-agents"></pre>
+  </div>
+
+  <div class="actions" style="justify-content:center; margin-top:24px;">
+    <button class="btn btn-secondary" onclick="emailAll()">Email these to me</button>
+    <button class="btn btn-ghost" onclick="resetAll()">Start over</button>
+  </div>
+</div>
+
+<div class="footer">
+  <a href="index.html">Spark home</a> ·
+  <a href="workshop.html">Workshop guide</a> ·
+  <a href="agents.html">Agent library</a>
+</div>
+
+</div>
+
+<script>
+const state = {
+  step: 1,
+  data: {
+    name:'', role:'', org:'', mission:'',
+    pain1:'', pain2:'', pain3:'',
+    projects:[{name:'',status:''}],
+    people:[{name:'',role:''},{name:'',role:''}],
+    commStyle:'', guardrail:'', email:'',
+  }
+};
+
+function load() {
+  try { Object.assign(state, JSON.parse(localStorage.getItem('spark-intake')||'{}')); } catch(e){}
+  renderProjects(); renderPeople();
+  // Hydrate fields
+  ['your-name:name','your-role:role','org-name:org','org-mission:mission',
+   'pain-1:pain1','pain-2:pain2','pain-3:pain3',
+   'comm-style:commStyle','guardrail:guardrail','your-email:email'
+  ].forEach(pair => {
+    const [id,key] = pair.split(':');
+    if (document.getElementById(id) && state.data[key]) document.getElementById(id).value = state.data[key];
+  });
+}
+function save() {
+  collect();
+  localStorage.setItem('spark-intake', JSON.stringify(state));
+}
+function collect() {
+  const g = id => (document.getElementById(id)||{}).value || '';
+  state.data.name = g('your-name'); state.data.role = g('your-role');
+  state.data.org = g('org-name'); state.data.mission = g('org-mission');
+  state.data.pain1 = g('pain-1'); state.data.pain2 = g('pain-2'); state.data.pain3 = g('pain-3');
+  state.data.commStyle = g('comm-style'); state.data.guardrail = g('guardrail'); state.data.email = g('your-email');
+  state.data.projects = Array.from(document.querySelectorAll('#projects-list .repeater-row')).map(row => {
+    const [nm, st] = row.querySelectorAll('input');
+    return { name: nm.value, status: st.value };
+  }).filter(p => p.name);
+  state.data.people = Array.from(document.querySelectorAll('#people-list .repeater-row')).map(row => {
+    const [nm, rl] = row.querySelectorAll('input');
+    return { name: nm.value, role: rl.value };
+  }).filter(p => p.name);
+}
+
+function nextStep() { save(); goTo(state.step + 1); }
+function prevStep() { save(); goTo(state.step - 1); }
+function goTo(n) {
+  if (n < 1 || n > 5) return;
+  state.step = n;
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.toggle('active', +p.dataset.step === n));
+  document.querySelectorAll('#progress .step').forEach((s, i) => s.classList.toggle('done', i < n));
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function renderProjects() {
+  const list = document.getElementById('projects-list');
+  const projects = state.data.projects.length ? state.data.projects : [{name:'',status:''}];
+  list.innerHTML = projects.map((p, i) => `
+    <div class="repeater-row">
+      <input type="text" placeholder="Project name" value="${esc(p.name)}">
+      <input type="text" placeholder="Status (active / paused / shipped)" value="${esc(p.status)}">
+      <button class="x" onclick="removeRow('projects-list', ${i})">×</button>
+    </div>`).join('');
+}
+function renderPeople() {
+  const list = document.getElementById('people-list');
+  const people = state.data.people.length ? state.data.people : [{name:'',role:''},{name:'',role:''}];
+  list.innerHTML = people.map((p, i) => `
+    <div class="repeater-row">
+      <input type="text" placeholder="Name" value="${esc(p.name)}">
+      <input type="text" placeholder="Role / relationship" value="${esc(p.role)}">
+      <button class="x" onclick="removeRow('people-list', ${i})">×</button>
+    </div>`).join('');
+}
+function addProject() { save(); state.data.projects.push({name:'',status:''}); renderProjects(); }
+function addPerson()  { save(); state.data.people.push({name:'',role:''}); renderPeople(); }
+function removeRow(listId, idx) {
+  save();
+  if (listId === 'projects-list') state.data.projects.splice(idx, 1);
+  else state.data.people.splice(idx, 1);
+  if (listId === 'projects-list') renderProjects(); else renderPeople();
+}
+
+function esc(s) { return String(s||'').replace(/"/g, '&quot;'); }
+
+function generate() {
+  save();
+  const d = state.data;
+  const today = new Date().toISOString().slice(0,10);
+
+  const orgstate = `---
+version: 1
+last_modified: ${today}
+---
+
+# ${d.org || '[Org Name]'} — State
+
+**Mission:** ${d.mission || '[one-line mission]'}
+
+## Top 3 Priorities This Week
+1. ${d.pain1 || '[priority]'}
+2. ${d.pain2 || '[priority]'}
+3. ${d.pain3 || '[priority]'}
+
+## Active Projects
+${(d.projects.length ? d.projects : [{name:'[project]',status:'active'}])
+  .map(p => `- ${p.name || '[project]'} — ${p.status || 'active'}`).join('\n')}
+
+## Owner
+${d.name || '[your name]'} · ${d.role || '[your role]'}
+`;
+
+  const portfolio = `# Portfolio
+
+| Project | Status | Owner | Next Milestone |
+|---------|--------|-------|----------------|
+${(d.projects.length ? d.projects : [{name:'[project]',status:'active'}])
+  .map(p => `| ${p.name || '[project]'} | ${p.status || 'active'} | ${d.name || 'TBD'} | [milestone] |`).join('\n')}
+
+## Status Definitions
+- **active** — work this week
+- **paused** — will resume; reason logged
+- **shipped** — released and in maintenance
+- **parked** — may revive; minimal upkeep only
+`;
+
+  const roster = `# Collective Roster
+
+## Core
+- ${d.name || '[your name]'} · ${d.role || '[role]'}
+
+## Board / Partners / Key Relationships
+${(d.people.length ? d.people : [{name:'[person]',role:'[role]'}])
+  .map(p => `- **${p.name || '[name]'}** — ${p.role || '[role/relationship]'}`).join('\n')}
+`;
+
+  const memory = `# Memory Index
+
+## User
+- [user_communication_style.md](user_communication_style.md) — ${d.commStyle ? 'How ' + (d.name || 'the user') + ' wants to be communicated with' : '[how you want agents to speak to you]'}
+
+## Feedback
+- [feedback_guardrail.md](feedback_guardrail.md) — ${d.guardrail ? 'Hard guardrail: never ' + d.guardrail : '[a hard guardrail for your agents]'}
+
+## Project
+${(d.projects.length ? d.projects : [{name:'[project]',status:'active'}])
+  .slice(0, 3).map(p => `- [project_${(p.name || 'project').toLowerCase().replace(/\s+/g,'_')}.md](project_${(p.name || 'project').toLowerCase().replace(/\s+/g,'_')}.md) — ${p.name || '[project]'} · ${p.status || 'active'}`).join('\n')}
+`;
+
+  const agents = `# Your first 3 agents — customized from your pain points
+
+Based on what you shared, the three agents we'll build first are tuned to:
+
+## 1. Agent for: ${d.pain1 || '[pain point 1]'}
+Most likely: **The Grant Writer** or **The Funder Analyst** (if funding-related) · **The Newsletter Drafter** (if comms-related) · **The Partner Scout** (if relationship-related)
+→ We'll pick the exact spec during Hour 1 of the workshop.
+
+## 2. Agent for: ${d.pain2 || '[pain point 2]'}
+Most likely: **The Content Planner** or **The Social Strategist** (comms) · **The Board Liaison** (governance) · **The Program Evaluator** (outcomes)
+→ Hour 1.
+
+## 3. Agent for: ${d.pain3 || '[pain point 3]'}
+Most likely: **The Volunteer Coordinator** · **The Decision Journalist** · **The Cultural Validator** (if heritage content)
+→ Hour 1.
+
+## Also pre-loaded for you:
+- **The Scenario Engineer** (available from Hour 2)
+- **The Technical Mentor** (for learning + onboarding)
+
+Browse all 20: spark.radicalimagination.xyz/agents
+`;
+
+  document.getElementById('r-orgstate').textContent = orgstate;
+  document.getElementById('r-portfolio').textContent = portfolio;
+  document.getElementById('r-roster').textContent = roster;
+  document.getElementById('r-memory').textContent = memory;
+  document.getElementById('r-agents').textContent = agents;
+
+  document.getElementById('form-view').style.display = 'none';
+  document.getElementById('result-view').classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function copyBlock(id) {
+  const txt = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = event.target;
+    const label = btn.textContent;
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = label, 1500);
+  });
+}
+
+function emailAll() {
+  const blocks = ['r-orgstate','r-portfolio','r-roster','r-memory','r-agents'];
+  const titles = ['state/org-state.md','state/portfolio.md','state/collective-roster.md','memory/MEMORY.md','First 3 Agents'];
+  const body = blocks.map((b, i) =>
+    '==== ' + titles[i] + ' ====\n\n' + document.getElementById(b).textContent
+  ).join('\n\n');
+  const mailto = 'mailto:' + encodeURIComponent(state.data.email || '') +
+    '?cc=mike@radicalimagination.xyz' +
+    '&subject=' + encodeURIComponent('Spark intake — your starter files · ' + (state.data.org || state.data.name || '')) +
+    '&body=' + encodeURIComponent(body);
+  window.location.href = mailto;
+}
+
+function resetAll() {
+  if (!confirm('Clear intake and start over?')) return;
+  localStorage.removeItem('spark-intake');
+  location.reload();
+}
+
+load();
+goTo(1);
+</script>
+
+</body>
+</html>
