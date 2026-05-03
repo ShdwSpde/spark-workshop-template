@@ -80,6 +80,23 @@ This is the most important governance rule in the system.
 
 ---
 
+## 7. The OAuth Treadmill
+
+**What happened:** Across two consecutive sessions (2026-05-02 and 2026-05-03), the Gmail MCP connector returned `Request had insufficient authentication scopes` errors on every call — including read-only operations like `list_labels`. Drafting a session-close email through the standard automated flow failed silently. The session-close artifact had to be saved as a local file and pasted into Gmail manually.
+
+**Why it happened:** The OAuth token attached to the Gmail connector was minted with insufficient scopes when the user reconnected the connector. Google's consent screen collapses scope sections by default, so compose/send permissions can be missed during re-auth even when the user thinks they granted everything. Reconnecting from `/mcp` inside Claude Code does not fix the problem because the OAuth grant lives at claude.ai/settings, not in the CLI.
+
+**What caught it:** The actual tool call. Spark attempted `list_labels` and `create_draft` and got insufficient-scopes errors. There was no proactive scope check before the tool was advertised as available — the connector reported "✓ Connected" at the transport layer while the token was unusable for write operations.
+
+**What the system didn't catch:** The fact that this is structural, not an accident. Across 14 active connectors at typical 95% reliability each, the probability that *all of them work on any given day* is ~49%. The system has no scope-verification gate before exposing tools, no managed reconnection flow, no proactive token-rotation handling. The user discovers the breakage when they need the tool, which is the worst time.
+
+**What changed:**
+- Workshop module 3.4 (Reality Check · The Stack You Don't Own) added to Hour 3. Teaches participants the math and the three responses (Reduce / Localize / Sovereign) before they leave the room. Sets honest expectations so participants don't churn out silently when the inevitable breakage happens to them.
+- Spark Sovereign productline spec drafted (`specs/2026-05-03-spark-sovereign-productline.md`) covering Stack audit, Companion Console, Reverse OAuth (agent-as-staff), and Spark Ops managed tier. The platform-layer answer to the connector treadmill.
+- Operating principle for any RI agentic workflow: ≤3 load-bearing connectors per workflow. Everything else is opportunistic.
+
+---
+
 ## What the Failures Teach
 
 1. **AI doesn't have eyes.** Visual verification requires screenshots and human review. No amount of metadata matching replaces looking at the image.
@@ -91,3 +108,5 @@ This is the most important governance rule in the system.
 4. **Governance can't be optional.** The Anti-Rubber-Stamp Rule exists because without it, the system tells you what you want to hear. The correction protocol exists because without it, the same mistake happens twice.
 
 5. **Human oversight is not a limitation — it's the design.** Every failure on this list was caught by a human, not by the system. The system's job is to make human review efficient, not to replace it.
+
+6. **Connector graphs compound failure.** Every integration is multiplicative. 14 connectors at 95% each = 49% daily success. The number of breaking points is the system's actual reliability ceiling, and it's invisible until it bites. Reduce, localize, or pick sovereign tools — and tell users about the math before they're surprised by it.

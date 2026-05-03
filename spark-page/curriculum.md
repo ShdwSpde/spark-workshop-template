@@ -298,7 +298,7 @@ The 5 roles Spark replaces:
 
 ---
 
-#### HOUR 3: Connect and Operate (60 min)
+#### HOUR 3: Connect and Operate (70 min)
 
 **Skill-Building: Gmail MCP Integration (15 min)**
 - Live demo: connect Gmail MCP to Claude Code
@@ -323,6 +323,17 @@ The 5 roles Spark replaces:
 - The AI drafts from context. The participant sees it work.
 - THIS IS THE MOMENT. When the AI reads their own data and responds with intelligence about THEIR organization, it clicks.
 
+**Reality Check: The Stack You Don't Own (10 min)**
+- The truth participants need before they leave the room. Every connector they wired up is a permission a third party can revoke.
+- The math: 14 connectors × 95% reliability = 49% daily success rate. Five = 77%. Three = 86%. Compounding failure is the actual ceiling on agentic AI for non-power users.
+- The three responses:
+  1. **Reduce** — pick ≤3 load-bearing connectors per workflow. For Spark that's Gmail + file store + newsletter platform. Everything else is opportunistic.
+  2. **Localize** — OS keychain over cloud OAuth wherever possible.
+  3. **Sovereign** — pick tools the org actually owns. Listmonk over Mailchimp. Matrix over Slack. CryptPad over Google Docs.
+- The political read: "Every connector is a permission someone else can revoke. Agentic AI is only as autonomous as the stack underneath it. Other workshops are selling the magic. We're selling the discipline."
+- Bridge: "If running this stack alone feels heavy — that's correct. RI runs a managed ops tier. Talk to us after."
+- **Facilitator: don't soften this module.** If a connector is broken in your own setup right now, show the live failure. The honest disclosure is what builds trust the other AI workshops can't buy.
+
 **Reflection + Close (10 min)**
 - "What surprised you?"
 - "What's the first thing you'll use this for tomorrow?"
@@ -346,6 +357,7 @@ The 5 roles Spark replaces:
 - **"Does this work for a team, not just a solo founder?"** Yes — each team member can have their own Spark instance that shares state files via git. Federated agents with shared institutional memory.
 - **"What if I'm not technical?"** The keynote requires nothing. The workshop requires basic comfort with a text editor and terminal. No coding.
 - **"Is this the same as using ChatGPT?"** No. ChatGPT forgets everything between conversations. Spark has persistent state files, memory across sessions, multiple agent personas, and tool integrations. It's the difference between texting a stranger and having a COO.
+- **"Will my workflow break?"** Yes, regularly. Connectors rotate tokens, scopes drift, vendors change policy. Module 3.4 (Reality Check) walks through why and the three responses: reduce connectors, localize credentials, prefer sovereign tools your org owns. Plan for breakage; don't be surprised by it.
 
 ### What Participants Leave With
 1. A working CLAUDE.md with their org's instructions
