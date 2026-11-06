@@ -1,12 +1,22 @@
-# Give Your Org a Spark ✒️⚡
+# Give Your Org a Spark
 
-> Build a Chief Agentic Officer — a multi-agent AI system that runs your organization's operations.
+> A Chief Agentic Officer: a team of AI agents, run through Claude Code, that keeps an organization's work moving.
 
-**8 AI agents. Shared state. Persistent memory. Governance built in. $20/month.**
+![The Spark workshop page](assets/spark.gif)
 
-Spark is the operating system behind [Radical Imagination](https://radicalimagination.xyz), a cultural heritage technology collective managing 17 projects across 154K+ lines of code. It handles grants, curricula, cultural validation, impact reporting, outreach, and portfolio tracking — all through a multi-agent architecture running on Claude Code.
+**Workshop and live page:** [spark.radicalimagination.xyz](https://spark.radicalimagination.xyz)
 
-This repo is the template. Fork it. Customize it. Give your org a Spark.
+Spark is the system Radical Imagination, a cultural technology studio in Queens, runs on: one entry point, specialized agents for grants, curriculum, archives, cultural review, outreach and the portfolio, all reading and writing the same state files, with a review gate before anything cultural ships.
+
+## Demo, in captions
+
+1. "One studio. Many projects. One entry point."
+2. "Ask Spark. It routes the work to the right agent."
+3. "Every agent reads the same state."
+4. "Nothing cultural ships without review."
+5. "Give your org a Spark."
+
+This repo is the template. Fork it, customize it, give your org a Spark.
 
 ---
 
@@ -64,10 +74,10 @@ This repo is the template. Fork it. Customize it. Give your org a Spark.
 
 1. **You talk to Spark.** One entry point, not 8 separate tools.
 2. **Spark routes to the right agent** based on what you're asking.
-3. **Every agent reads the same state files** — your portfolio, priorities, people, decisions.
-4. **Every agent writes to the same state files** — the institution documents itself.
-5. **Memory persists across sessions** — Spark remembers your preferences, your corrections, your context.
-6. **Every session starts and ends with a protocol** — read state, check for contradictions, do the work, update state, draft the morning email.
+3. **Every agent reads the same state files**: your portfolio, priorities, people, decisions.
+4. **Every agent writes to the same state files**: the institution documents itself.
+5. **Memory persists across sessions**: Spark remembers your preferences, your corrections, your context.
+6. **Every session starts and ends with a protocol**: read state, check for contradictions, do the work, update state, draft the morning email.
 
 The state files ARE the institution. If the founder gets hit by a bus, the state files tell the next person everything.
 
@@ -159,7 +169,7 @@ Want to build your Spark with guided help?
 
 - **60-min Keynote:** The story of how Spark was built, the architecture, live demos, Q&A
 - **3-hour Workshop:** Hands-on build. You leave with a working system.
-- **Full-day Intensive:** Advanced features — cross-project intelligence, contradiction detection, scenario modeling
+- **Full-day Intensive:** Advanced features: cross-project intelligence, contradiction detection, scenario modeling
 
 **Workshop materials and facilitator guides:** [radicalimagination.xyz/spark](https://radicalimagination.xyz/spark) (password-protected for workshop attendees)
 
@@ -167,7 +177,7 @@ Want to build your Spark with guided help?
 
 ## Built By
 
-**[Radical Imagination](https://radicalimagination.xyz)** — a collective that designs VR/AR/XR experiences honoring cultural heritage. Spark is the operating system. Now it's yours.
+**[Radical Imagination](https://radicalimagination.xyz)** is a cultural technology studio in Queens. Spark is the system it runs on. Now it's yours.
 
 ---
 
