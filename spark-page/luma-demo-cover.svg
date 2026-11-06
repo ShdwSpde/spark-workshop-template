@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <title>Does Your Org Need a Spark? Radical Imagination live agent demo</title>
+  <desc>Branded Luma event cover: a gold lightning bolt on black, announcing a live demo of the Funding Agent and Social Content Agent at the Capital One Cafe, Union Square.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F2DC9E"/>
+      <stop offset="50%" stop-color="#D2AB59"/>
+      <stop offset="100%" stop-color="#B0863A"/>
+    </linearGradient>
+    <linearGradient id="brightGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FCEFC6"/>
+      <stop offset="100%" stop-color="#EBCE83"/>
+    </linearGradient>
+    <linearGradient id="boltGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBEAB0"/>
+      <stop offset="55%" stop-color="#DCB45F"/>
+      <stop offset="100%" stop-color="#A87E32"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#D7A748" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#D7A748" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="46%" cy="40%" r="72%">
+      <stop offset="55%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.62"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="#0B0B0B"/>
+  <ellipse cx="1015" cy="360" rx="330" ry="350" fill="url(#glow)"/>
+
+  <path d="M1040,95 L935,378 L1012,378 L905,625 L1132,338 L1048,338 Z" fill="#C9923A" opacity="0.55" filter="url(#soft)"/>
+  <path d="M1040,95 L935,378 L1012,378 L905,625 L1132,338 L1048,338 Z" fill="url(#boltGold)"/>
+
+  <path d="M1152,248 l9,9 -9,9 -9,-9 Z" fill="url(#brightGold)" opacity="0.9"/>
+  <path d="M874,464 l7,7 -7,7 -7,-7 Z" fill="url(#brightGold)" opacity="0.8"/>
+  <path d="M1178,432 l6,6 -6,6 -6,-6 Z" fill="url(#brightGold)" opacity="0.75"/>
+
+  <rect width="1280" height="720" fill="url(#vig)"/>
+
+  <rect x="28" y="28" width="1224" height="664" fill="none" stroke="url(#gold)" stroke-width="1.4" opacity="0.5"/>
+  <g fill="none" stroke="url(#gold)" stroke-width="3" opacity="0.85">
+    <path d="M28,68 L28,28 L68,28"/>
+    <path d="M1212,28 L1252,28 L1252,68"/>
+    <path d="M28,652 L28,692 L68,692"/>
+    <path d="M1212,692 L1252,692 L1252,652"/>
+  </g>
+
+  <text x="82" y="142" fill="url(#gold)" font-size="23" font-weight="700" letter-spacing="6">A LIVE SPARK DEMO</text>
+
+  <text x="78" y="312" fill="url(#gold)" font-size="95" font-weight="800" letter-spacing="-1.5">Does your org</text>
+  <text x="78" y="416" font-size="95" font-weight="800" letter-spacing="-1.5"><tspan fill="url(#gold)">need a </tspan><tspan fill="url(#brightGold)">Spark?</tspan></text>
+
+  <rect x="82" y="452" width="124" height="5" fill="url(#gold)"/>
+
+  <text x="84" y="512" fill="url(#gold)" font-size="20" font-weight="700" letter-spacing="2.5">THE FUNDING AGENT&#160;&#160;&#160;&#183;&#160;&#160;&#160;THE SOCIAL CONTENT AGENT</text>
+
+  <text x="84" y="644" fill="url(#gold)" font-size="17" font-weight="700" letter-spacing="3.5">RADICAL IMAGINATION</text>
+</svg>
