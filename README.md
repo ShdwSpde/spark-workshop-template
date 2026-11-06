@@ -10,6 +10,8 @@ Spark is the system Radical Imagination, a cultural technology studio in Queens,
 
 ## Demo, in captions
 
+**▶ [Watch the demo](https://radicalimagination.xyz/demos/spark.mp4)** (silent, captioned, under 30 seconds)
+
 1. "One studio. Many projects. One entry point."
 2. "Ask Spark. It routes the work to the right agent."
 3. "Every agent reads the same state."
