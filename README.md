@@ -151,8 +151,7 @@ claude
 2. Keep it to eight agents or fewer. Improve the agents you have before adding new ones.
 3. Keep the state files up to date. They are what the AI knows about your organization at the start of each session.
 4. Spark drafts and a person sends. Emails and posts stay drafts until someone reviews them.
-5. Start and end every session the same way: read the state and check for contradictions; then update the state and draft the morning email.
-6. Correct it when it's wrong. Spark saves corrections as memory, so they carry forward.
+5. Correct it when it's wrong. Spark saves corrections as memory, so they carry forward.
 
 ## Workshops
 
