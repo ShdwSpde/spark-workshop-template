@@ -334,6 +334,15 @@ The 5 roles Spark replaces:
 - Bridge: "If running this stack alone feels heavy — that's correct. RI runs a managed ops tier. Talk to us after."
 - **Facilitator: don't soften this module.** If a connector is broken in your own setup right now, show the live failure. The honest disclosure is what builds trust the other AI workshops can't buy.
 
+**Skill-Building: Prove It Works: Evals, Reviewers and Guardrails (20 min)** *(added 2026-11-14)*
+- Why this module exists: an industry review panel of hiring-side practitioners (Nov 2026) named the gaps they see in AI training: **evals**, **guardrails and data protection**, **token economics**, and the ability to **explain the system's architecture** rather than recite syntax. They also called **repo rules and skills** underrated. Spark already does most of this; this module makes it teachable.
+- **1. The reviewer is not the builder (5 min).** The anti-rubber-stamp rule (Slide 21), made structural: the reviewer runs as a separate subagent in a fresh context and sees only the file, never the builder's reasoning. Live proof from RI: the session that wrote a game prompt logged its facts as "web-checked"; the fresh reviewer blocked it (no registered sources, a loss with no cost shown, invented mechanics not labelled as invented).
+- **2. Evals with an answer key (7 min).** Seed a test item with known errors (a wrong date, a misattributed quote, an unsourced number, a rule-breaking design) plus a few true claims, and keep the key hidden from the reviewer. Score recall (errors caught) and false positives (true claims called wrong). Then a clean item, to catch a reviewer that blocks everything. Participants write one seeded test for their own org's most common mistake.
+- **3. Deterministic checks for the boring failures (4 min).** Some mistakes don't need a model to catch them. RI's live example: for two days the agents wrote "Mon 11/17" for a Tuesday deadline; a 20-line script that checks every weekday against its date now runs on every briefing and state file, and found the same bug in the May logs. Rule of thumb: if you can write the rule as a regex, don't spend tokens on it.
+- **4. Guardrails and data protection (4 min).** What never goes in a state file (client personal data, health or student records, credentials). Agents never read token files; they use the CLI or connector that holds the credential. If the org serves health, education or government clients, name the law that applies (HIPAA, FERPA, GDPR/UK GDPR) in CLAUDE.md so every agent sees it. Point of the slide: the guardrail is a written rule plus a check, not a hope.
+- **Token economics (say it, don't teach it):** companies are starting to give staff fixed AI budgets, so routing, cheap deterministic checks and short context are a hiring signal, not just a cost saving.
+- **Facilitator:** to keep Hour 3 at 70 min, cut the Gmail demo to 10 min and the Session Protocol to 5. Participants who connected Gmail already did the hard part.
+
 **Reflection + Close (10 min)**
 - "What surprised you?"
 - "What's the first thing you'll use this for tomorrow?"
@@ -367,7 +376,9 @@ The 5 roles Spark replaces:
 5. A session protocol template
 6. (Optional) Gmail MCP connected
 7. The workshop template repo for reference
-8. The confidence that this is buildable in a weekend
+8. One seeded eval (a test item with a hidden answer key) for their org's most common mistake
+9. A guardrails line in their CLAUDE.md: what never goes in state, which law applies, no token files
+10. The confidence that this is buildable in a weekend
 
 ---
 
