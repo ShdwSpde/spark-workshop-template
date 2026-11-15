@@ -42,7 +42,7 @@ Mike Spade, Radical Imagination
 **Slide 2: The Setup**
 "I'm one person running 17 projects across 155,000 lines of code with zero funding."
 [Show the portfolio quick-reference table. Let the number land.]
-"I needed to hire 5 people. I had $20/month."
+"I needed to hire 5 people. I had $100/month."
 
 **Slide 3: What I Actually Need**
 The 5 roles Spark replaces:
@@ -149,11 +149,11 @@ The 5 roles Spark replaces:
 "Every major decision gets modeled against the REAL state of the organization."
 
 **Slide 18: What It Actually Costs**
-- Claude Code subscription: ~$20/month
+- Claude subscription with Claude Code: from $20/month (Pro); RI runs on $100/month
 - Gmail MCP: free (OAuth)
 - Google Calendar MCP: free
 - Git repo: free
-- Total: $20/month for a system that replaces $250K/year of specialized labor
+- Total: $100/month for a system that replaces $250K/year of specialized labor
 
 "The ROI is absurd. But the value isn't the cost savings. The value is that one person can operate like a ten-person company."
 
@@ -204,7 +204,7 @@ The 5 roles Spark replaces:
 "The institution doesn't need the founder in the room to know what's happening."
 
 **Slide 25: The Line**
-"155,000 lines of code. 17 projects. 1 founder. 0 funding. 8 AI agents. $20/month."
+"155,000 lines of code. 17 projects. 1 founder. 0 funding. 8 AI agents. $100/month."
 "The system didn't make the art. The system made the art POSSIBLE."
 
 **Slide 26: Q&A**
